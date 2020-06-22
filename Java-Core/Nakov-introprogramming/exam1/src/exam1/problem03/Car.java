@@ -55,6 +55,7 @@ public class Car {
 		}
 		
 		final Car other = (Car) obj;
+		
 		if (this.brand == null) {
 			if (other.brand != null) {
 				return false;
@@ -63,14 +64,29 @@ public class Car {
 			return false;
 		}
 		
+		if (this.model == null) {
+			if (other.model != null) {
+				return false;
+			}
+		} else if (!this.model.equals(other.model)) {
+			return false;
+		}
 		
+		if(this.productionYear != other.productionYear) {
+			return false;
+		}
 		
 		return true;
 	}
 	
 	@Override
 	public int hashCode() {
-		// TODO Auto-generated method stub
-		return super.hashCode();
+		final int prime = 3;
+		int result = 1;
+		
+		result = prime * result + ((this.brand == null) ? 0 : this.brand.hashCode());
+		result = prime * result + ((this.model == null) ? 0 : this.model.hashCode());
+		result = prime * result + this.getProductionYear();
+		return result;
 	}
 }
