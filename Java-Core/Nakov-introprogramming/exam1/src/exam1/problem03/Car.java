@@ -36,11 +36,6 @@ public class Car {
 	}
 	
 	@Override
-	public String toString() {
-		return String.format("%s %s, %d", this.brand, this.model, this.productionYear);
-	}
-	
-	@Override
 	public boolean equals(Object obj) {
 		if(obj == null) {
 			return false;
@@ -89,4 +84,10 @@ public class Car {
 		result = prime * result + this.getProductionYear();
 		return result;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s %s, %d", this.brand, this.model, this.productionYear);
+	}
+	
 }

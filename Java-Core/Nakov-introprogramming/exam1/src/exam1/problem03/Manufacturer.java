@@ -57,7 +57,6 @@ public class Manufacturer {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
+		return String.format("%s - %s, %s (%s)", this.name, this.country, this.address, this.phone);
 	}
 }
