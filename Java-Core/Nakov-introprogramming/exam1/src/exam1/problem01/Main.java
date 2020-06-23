@@ -10,7 +10,17 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class Main {
+	/*
+	 * Open a html file, 
+	 * strip all html tags 
+	 * and save text into txt file
+	 */
+
+	private static final char OPENING_BRACKET = '<';			
+	private static final char CLOSING_BRACKET = '>';			
+
 	public static void main(String[] args) throws IOException {
+				
 		BufferedReader bReader = null;
 		final String inputFilePath = "src" + File.separator
 						+ "exam1" + File.separator 
@@ -19,7 +29,7 @@ public class Main {
 		final String outputPath = "src" + File.separator
 						+ "exam1" + File.separator 
 						+ "problem01" + File.separator 
-						+ "Рroblem1.txt";
+						+ "Problem1.txt";
 		ArrayList<String> strippedLines = new ArrayList<>();
 		
 		try {
@@ -36,22 +46,21 @@ public class Main {
 				line = bReader.readLine();
 			}
 			
-			bReader.close();
 			System.out.println(convertToString(strippedLines));
 			saveResult(strippedLines, outputPath);
 		} catch (IOException e) {
 			System.out.println("File cannot be read");
 		} finally {
-			bReader.close();
+			if (bReader != null) {
+				bReader.close();
+			}
 		}
 	}
 
 	private static String stripTags(String line) {
-		char OPENING_BRACKET = '<';			
-		char CLOSING_BRACKET = '>';			
-
+		
 		StringBuilder stringBuilder = new StringBuilder();
-		boolean wasTagClosed = false;
+		boolean wasTagClosed = true;
 		
 		for (int i = 0; i < line.length(); i++) {
 			char currentChar = line.charAt(i);
@@ -79,7 +88,10 @@ public class Main {
 		
 		try {
 			pWriter = new PrintWriter(outputPath);
-			pWriter.println(convertToString(strippedLines));
+			String output = convertToString(strippedLines);
+			if (output.length() > 0) {
+				pWriter.println(output);
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} finally {
