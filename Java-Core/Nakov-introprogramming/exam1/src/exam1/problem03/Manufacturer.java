@@ -1,5 +1,7 @@
 package exam1.problem03;
 
+import java.util.Objects;
+
 public class Manufacturer {
 	private String name;
 	private String country;
@@ -55,6 +57,31 @@ public class Manufacturer {
 		this.fax = fax;
 	}
 	
+	@Override
+	public int hashCode() {
+		return Objects.hash(address, country, fax, name, phone);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		
+		if (obj == null)
+			return false;
+		
+		if (getClass() != obj.getClass())
+			return false;
+		
+		Manufacturer other = (Manufacturer) obj;
+		
+		return Objects.equals(address, other.address) 
+				&& Objects.equals(country, other.country)
+				&& Objects.equals(fax, other.fax) 
+				&& Objects.equals(name, other.name)
+				&& Objects.equals(phone, other.phone);
+	}
+
 	@Override
 	public String toString() {
 		return String.format("%s - %s, %s (%s)", this.name, this.country, this.address, this.phone);
