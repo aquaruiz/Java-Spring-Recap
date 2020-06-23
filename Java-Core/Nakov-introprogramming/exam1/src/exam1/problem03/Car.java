@@ -1,5 +1,9 @@
 package exam1.problem03;
 
+import java.util.Objects;
+
+import sun.tools.tree.ThisExpression;
+
 public class Car {
 	private String brand;
 	private String model;
@@ -51,23 +55,11 @@ public class Car {
 		
 		final Car other = (Car) obj;
 		
-		if (this.brand == null) {
-			if (other.brand != null) {
-				return false;
-			}
-		} else if (!this.brand.equals(other.brand)) {
+		if (!Objects.equals(this.brand, other.brand)) {
 			return false;
-		}
-		
-		if (this.model == null) {
-			if (other.model != null) {
-				return false;
-			}
-		} else if (!this.model.equals(other.model)) {
+		} else if (!Objects.equals(this.model, other.model)) {
 			return false;
-		}
-		
-		if(this.productionYear != other.productionYear) {
+		} else if(this.productionYear != other.productionYear) {
 			return false;
 		}
 		
