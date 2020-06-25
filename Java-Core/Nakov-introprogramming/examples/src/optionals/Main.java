@@ -15,6 +15,15 @@ public class Main {
 				this.id = id;
 				this.name = name;
 			}
+			
+			public String getName() {
+				return name;
+			}
+			
+			public String getId() {
+				return id;
+			}
+			
 			@Override
 			public String toString() {
 				return this.id + " | " + this.name;
@@ -40,7 +49,24 @@ public class Main {
 		System.out.println(user3_optional.orElse(new User("0000", "anon")));
 		System.out.println(user1_optional.orElse(new User("0000", "anon")));
 		
-
+		//check an user field
+		
+		user2_optional
+			.filter(user -> user.getName().equalsIgnoreCase("John Smith"))
+			.ifPresent((u) -> { // takes a predicate as argument
+				System.out.println("You're busted John Smith");
+			});
+		
+		// same but with mapping first
+		// if no user in optional or user with no name, 
+		// then null and it does not present :)
+		// if mapping func returns other optional use flatMap instead
+		user2_optional
+			.map(User::getName)
+			.filter(name -> name.equalsIgnoreCase("John Smith"))
+			.ifPresent((u) -> { // takes a predicate as argument
+				System.out.println("You're busted John Smith");
+			});
 	}
 
 }
