@@ -5,7 +5,7 @@ import java.lang.reflect.Modifier;
 
 public class Utility {
 	@SuppressWarnings("rawtypes")
-	public static boolean copyFileds(Object source, Object destination, boolean includePrivate) {
+	public static boolean copyFields(Object source, Object destination, boolean includePrivate) {
 		if (source == null || destination == null) {
 			return false;
 		}
