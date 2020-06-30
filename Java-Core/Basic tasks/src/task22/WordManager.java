@@ -69,7 +69,8 @@ public class WordManager {
 		int[][] matrix = calcLCSMatrix(words);
 		List<String> subseq = restoreSubsequences(matrix, words);
 		System.out.println(matrix[matrix.length-1][matrix[0].length-1]);
-		System.out.println(String.join("", subseq));
+		System.out.println("The subsequence is: " + subseq.get(0));
+		System.out.println("The start index is: " + subseq.get(1));
 	}
 
 	private static List<String> restoreSubsequences(int[][] matrix, String[] words) {
@@ -81,11 +82,14 @@ public class WordManager {
 		int i = firstWord.length;
 		int j = secondWord.length;
 		
+		int lastUsedIndex = -1;
+		
 		while (i > 0 && j > 0) {
 			if (firstWord[i-1] == secondWord[j-1]) {
 				stringBuilder.append(firstWord[i-1]);
 				i--;
 				j--;
+				lastUsedIndex = i;
 			} else if (matrix[i-1][j] > matrix[i][j-1]) {
 				i--;
 			} else {
@@ -95,6 +99,7 @@ public class WordManager {
 		
 		List<String> result = new ArrayList<>();
 		result.add(stringBuilder.reverse().toString());
+		result.add(String.valueOf(lastUsedIndex));
 		return result;
 	}
 
