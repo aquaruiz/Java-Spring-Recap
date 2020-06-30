@@ -72,7 +72,8 @@ public class WordManager {
 		List<String> subseq = restoreSubsequences(matrix, words);
 		System.out.println(matrix[matrix.length-1][matrix[0].length-1]);
 		System.out.println("The subsequence is: " + subseq.get(0));
-		System.out.println("The start index is: " + subseq.get(1));
+		System.out.println("The start index for first word is: " + subseq.get(1));
+		System.out.println("The start index for second word is: " + subseq.get(2));
 		System.out.println("Time diff in seconds is: " + (System.currentTimeMillis() - startTime)/100);
 	}
 
@@ -85,14 +86,16 @@ public class WordManager {
 		int i = firstWord.length;
 		int j = secondWord.length;
 		
-		int lastUsedIndex = -1;
+		int lastUsedIndexInFirstWord = -1;
+		int lastUsedIndexInSecondWord = -1;
 		
 		while (i > 0 && j > 0) {
 			if (firstWord[i-1] == secondWord[j-1]) {
 				stringBuilder.append(firstWord[i-1]);
 				i--;
 				j--;
-				lastUsedIndex = i;
+				lastUsedIndexInFirstWord = i;
+				lastUsedIndexInSecondWord = j;
 			} else if (matrix[i-1][j] > matrix[i][j-1]) {
 				i--;
 			} else {
@@ -102,7 +105,8 @@ public class WordManager {
 		
 		List<String> result = new ArrayList<>();
 		result.add(stringBuilder.reverse().toString());
-		result.add(String.valueOf(lastUsedIndex));
+		result.add(String.valueOf(lastUsedIndexInFirstWord));
+		result.add(String.valueOf(lastUsedIndexInSecondWord));
 		return result;
 	}
 
