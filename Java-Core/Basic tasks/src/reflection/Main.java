@@ -8,6 +8,7 @@ public class Main {
 		
 		Utility.copyFields(person, woman, false);
 		System.out.println(woman.age);
+		System.out.println(woman.name);
 	}
 
 }
