@@ -33,7 +33,7 @@ public class Main {
 		 * in both words irregardless of position for N = 50 000 and output it.
 		 */
 	
-		words = WordManager.generateRandomWordsWithLength(2, 5000);
+		words = WordManager.generateRandomWordsWithLength(2, 21000);
 //		System.out.println(words[0].length());
 		
 		WordManager.getLongestMatchingSequence(words);

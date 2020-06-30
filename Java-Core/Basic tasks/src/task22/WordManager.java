@@ -9,6 +9,7 @@ import java.util.Set;
 public class WordManager {
 	private static final String LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	private static final int LETTER_COUNT = LETTERS.length();
+	private static long startTime;
 	
 	public static String[] generateRandomWordsWithLength(int count, int length) {
 		String[] result = new String[count];
@@ -66,11 +67,13 @@ public class WordManager {
 	}
 
 	public static void getLongestMatchingSequence(String[] words) {
+		startTime = System.currentTimeMillis();
 		int[][] matrix = calcLCSMatrix(words);
 		List<String> subseq = restoreSubsequences(matrix, words);
 		System.out.println(matrix[matrix.length-1][matrix[0].length-1]);
 		System.out.println("The subsequence is: " + subseq.get(0));
 		System.out.println("The start index is: " + subseq.get(1));
+		System.out.println("Time diff in seconds is: " + (System.currentTimeMillis() - startTime)/100);
 	}
 
 	private static List<String> restoreSubsequences(int[][] matrix, String[] words) {
