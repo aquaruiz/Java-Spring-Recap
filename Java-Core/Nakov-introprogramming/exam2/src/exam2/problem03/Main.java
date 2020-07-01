@@ -1,6 +1,5 @@
 package exam2.problem03;
 
-import java.awt.image.RescaleOp;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
@@ -14,11 +13,11 @@ public class Main {
 	
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		String[] inputs = scanner.nextLine().split("");
+		String[] inputs = scanner.nextLine().trim().split("");
 		scanner.close();
 		
 		extractNumbersAndOperations(inputs);
-
+		 
 		int result = calcExpression();
 		System.out.println(result);
 	}
