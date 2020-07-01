@@ -46,8 +46,8 @@ public class Utility {
 		}
 
 		for (Field field : destinationFields) {
-			if (hasMatchingField(field, sourseClass)) {
-				destination = copy(field, destination, source, sourseClass);
+			if (hasMatchingField(field, sourseClass, includePrivate)) {
+				destination = copy(field, destination, source, sourseClass, includePrivate);
 			}
 		}
 
@@ -55,17 +55,18 @@ public class Utility {
 	}
 
 	@SuppressWarnings("rawtypes")
-	private static <T> T copy(Field field, T destinationObj, Object sourceObj, Class sourseClass) {
+	private static <T> T copy(Field field, T destinationObj, Object sourceObj, Class sourseClass, boolean includePrivate) {
 		Field sourceField;
 		try {
-			sourceField = sourseClass.getField(field.getName());
+			sourceField = includePrivate ? sourseClass.getDeclaredField(field.getName()) : sourseClass.getField(field.getName());
+			sourceField.setAccessible(true);
 			Object sourceFieldValue = sourceField.get(sourceObj);
 			
-			// add deep copying
+			// adding deep copying
 			if (field.getType().getSuperclass() != null 
 					&& !field.getType().getSuperclass().equals(Object.class)) {
 
-				sourceFieldValue = deepCopy(sourceFieldValue);
+				sourceFieldValue = deepCopy(sourceFieldValue, includePrivate);
 			}
 
 			field.set(destinationObj, sourceFieldValue);
@@ -77,7 +78,7 @@ public class Utility {
 	}
 
 	@SuppressWarnings({ "unchecked" })
-	private static <T> T deepCopy(T object) {
+	private static <T> T deepCopy(T object, boolean includePrivate) {
 		try {
 			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
@@ -97,10 +98,12 @@ public class Utility {
 	}
 
 	@SuppressWarnings("rawtypes")
-	private static boolean hasMatchingField(Field field, Class sourseClass) {
+	private static boolean hasMatchingField(Field field, Class sourseClass, boolean includePrivate) {
 		try {
 			String fieldName = field.getName();
-			Field sourseField = sourseClass.getField(fieldName);
+			
+			Field sourseField = includePrivate ? sourseClass.getDeclaredField(fieldName) : sourseClass.getField(fieldName);
+			sourseField.setAccessible(true);
 			if (field.getType().equals(sourseField.getType())) {
 				return true;
 			}
