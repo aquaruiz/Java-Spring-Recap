@@ -2,8 +2,6 @@ package exam1.problem03;
 
 import java.util.Objects;
 
-import sun.tools.tree.ThisExpression;
-
 public class Car {
 	private String brand;
 	private String model;
