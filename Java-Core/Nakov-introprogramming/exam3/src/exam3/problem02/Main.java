@@ -30,8 +30,8 @@ public class Main {
 	public static void main(String[] args) {
 		readWords();
 		readSampleSentances();
-		Map<String, Integer> count = arrangeSentancesInWords();
-		Map<String, Integer> result = checkWhatContains(count);
+		Map<String, Integer> sentenceCountedWords = arrangeSentancesInWords();
+		Map<String, Integer> result = checkWhatContains(sentenceCountedWords);
 		putInFile(result);
 	}
 
