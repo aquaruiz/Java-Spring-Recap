@@ -36,10 +36,10 @@ public class Utility {
 					field.setAccessible(true);
 				}
 			}
+		} else {
+			sourceFields = sourseClass.getFields();
+			destinationFields = destinationClass.getFields();
 		}
-
-		sourceFields = sourseClass.getFields();
-		destinationFields = destinationClass.getFields();
 
 		if (sourceFields.length == 0 || destinationFields.length == 0) {
 			return true;

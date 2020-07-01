@@ -6,9 +6,9 @@ public class Main {
 		Person person = new Person(52, "Tom");
 		Woman woman = new Woman();
 		
-		Utility.copyFields(person, woman, false);
-		System.out.println(woman.age);
-		System.out.println(woman.name);
+		Utility.copyFields(person, woman, true);
+		System.out.println(woman.getAge());
+		System.out.println(woman.getName());
 	}
 
 }
