@@ -1,6 +1,10 @@
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
@@ -54,8 +58,7 @@ public class StreamDeclarations {
 		    	      .filter(e -> e != null)
 		    	      .filter(e -> e.getSalary() > 100000)
 		    	      .findFirst()
-		    	      .orElse(null)
-	    		);
+		    	      .orElse(null));
 	    
 	    Employee[] employeesArray = employeeRepository
 							    		.getEmployees()
@@ -72,5 +75,34 @@ public class StreamDeclarations {
 		      .collect(Collectors.toList());
 	    
 	    System.out.println(String.join(", ", namesFlatStream));
+	    
+	    // short-circuiting ops
+	    Stream<Integer> infiniteStream = Stream.iterate(2, i -> i * 2);
+
+	    List<Integer> collected = infiniteStream
+	      .skip(3)
+	      .limit(5)
+	      .collect(Collectors.toList());
+	    
+	    collected.stream().forEach(System.out::println);
+
+	    String empNames = Arrays.stream(employeesArray)
+	    	      .map(Employee::getName)
+	    	      .collect(Collectors.joining(", "));
+	    
+	    Comparator<Employee> byNameLength = Comparator.comparing(Employee::getName);
+	    
+	    Map<Character, Optional<Employee>> longestNameByAlphabet = Arrays
+	    		.stream(employeesArray)
+	    		.collect(
+	    				Collectors
+	    					.groupingBy(
+	    							e -> e.getName().charAt(0),
+	    							Collectors.reducing(
+	    									BinaryOperator.maxBy(byNameLength)
+	    									)
+	    							)
+	    					);
+	    System.out.println(longestNameByAlphabet.get('B').get().getName());
 	}
 }
