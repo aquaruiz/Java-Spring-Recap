@@ -21,8 +21,7 @@ public class Utils {
         if (n <= 0)
             return false;
 
-        int sum = 0; // Problem starts over calculating sum each time 
-        // and doesn't count prevs counts
+        int sum = 0;
 
         for (int i = 1; sum <= n; i++) {
             sum = sum + i;

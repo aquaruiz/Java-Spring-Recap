@@ -90,6 +90,9 @@ public class StreamDeclarations {
 	    	      .map(Employee::getName)
 	    	      .collect(Collectors.joining(", "));
 	    
+	    // we group the employees based on the initial character 
+	    // of their first name. Within each group, 
+	    // we find the employee with the longest name.
 	    Comparator<Employee> byNameLength = Comparator.comparing(Employee::getName);
 	    
 	    Map<Character, Optional<Employee>> longestNameByAlphabet = Arrays
@@ -106,3 +109,4 @@ public class StreamDeclarations {
 	    System.out.println(longestNameByAlphabet.get('B').get().getName());
 	}
 }
+

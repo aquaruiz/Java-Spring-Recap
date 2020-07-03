@@ -11,7 +11,15 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-
+	/*
+	 * This is Atanas Atanasov's solution.
+	 * We wanted it to compare it to mine. 
+	 * 
+	 * I think it has a week spot.
+	 * ---> boolean checkIfTriangleNumber(int n)
+	 * method starts over calculating sum each time called
+     * and doesn't save previous calculated results even if repeated.
+	 */
 	public static void main(String[] args) throws IOException {
 		BufferedReader fileReader = new BufferedReader(
                 new FileReader("src" + File.separator
