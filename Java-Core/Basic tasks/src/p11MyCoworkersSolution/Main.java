@@ -1,4 +1,4 @@
-package task11;
+package p11MyCoworkersSolution;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,7 +15,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		BufferedReader fileReader = new BufferedReader(
                 new FileReader("src" + File.separator
-        				+ "task11" + File.separator 
+        				+ "p11MyCoworkersSolution" + File.separator 
         				+ "words.txt"));
         Map<Character, Integer> charsValues = new HashMap<>();
         List<String> list = new ArrayList<>();

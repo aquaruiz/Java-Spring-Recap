@@ -1,4 +1,4 @@
-package task11;
+package p11MyCoworkersSolution;
 
 import java.util.Map;
 

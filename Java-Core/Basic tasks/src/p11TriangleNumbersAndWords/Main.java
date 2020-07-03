@@ -1,4 +1,4 @@
-package task1;
+package p11TriangleNumbersAndWords;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -83,7 +83,7 @@ public class Main {
 
 	private static List<String> readText() {		
 		final String inputFilePath =  "src" + File.separator
-				+ "task1" + File.separator 
+				+ "p11TriangleNumbersAndWords" + File.separator 
 				+ "words.txt";
 		ArrayList<String> words = new ArrayList<>();
 		

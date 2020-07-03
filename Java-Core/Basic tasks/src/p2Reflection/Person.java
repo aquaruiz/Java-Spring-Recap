@@ -1,4 +1,4 @@
-package reflection;
+package p2Reflection;
 
 public class Person {
 //	public int age = 5;

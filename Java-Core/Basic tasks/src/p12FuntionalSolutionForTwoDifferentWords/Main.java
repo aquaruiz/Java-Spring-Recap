@@ -1,4 +1,4 @@
-package task2;
+package p12FuntionalSolutionForTwoDifferentWords;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -126,7 +126,7 @@ public class Main {
 	}
 
 	private static List<String> loadWords() {
-		final String inputFilePath = "src" + File.separator + "task1" + File.separator + "words.txt";
+		final String inputFilePath = "src" + File.separator + "p12FuntionalSolutionForTwoDifferentWords" + File.separator + "words.txt";
 		ArrayList<String> words = new ArrayList<>();
 
 		try (BufferedReader bReader = new BufferedReader(new FileReader(inputFilePath))) {

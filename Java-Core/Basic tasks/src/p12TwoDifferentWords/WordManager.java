@@ -1,4 +1,4 @@
-package task22;
+package p12TwoDifferentWords;
 
 import java.util.ArrayList;
 import java.util.HashSet;
