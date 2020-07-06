@@ -8,14 +8,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 public class Utility {
-	@SuppressWarnings("rawtypes")
 	public static boolean copyFields(Object source, Object destination, boolean includePrivate) {
 		if (source == null || destination == null) {
 			return false;
 		}
 
-		Class sourseClass = source.getClass();
-		Class destinationClass = destination.getClass();
+		Class<?> sourseClass = source.getClass();
+		Class<?> destinationClass = destination.getClass();
 
 		Field[] sourceFields;
 		Field[] destinationFields;
@@ -23,19 +22,6 @@ public class Utility {
 		if (includePrivate) {
 			sourceFields = sourseClass.getDeclaredFields();
 			destinationFields = destinationClass.getDeclaredFields();
-
-			// find private fields, allow access
-			for (Field field : destinationFields) {
-				if (isPrivate(field)) {
-					field.setAccessible(true);
-				}
-			}
-
-			for (Field field : sourceFields) {
-				if (isPrivate(field)) {
-					field.setAccessible(true);
-				}
-			}
 		} else {
 			sourceFields = sourseClass.getFields();
 			destinationFields = destinationClass.getFields();
@@ -47,15 +33,14 @@ public class Utility {
 
 		for (Field field : destinationFields) {
 			if (hasMatchingField(field, sourseClass, includePrivate)) {
-				destination = copy(field, destination, source, sourseClass, includePrivate);
+				copy(field, destination, source, sourseClass, includePrivate);
 			}
 		}
 
 		return true;
 	}
 
-	@SuppressWarnings("rawtypes")
-	private static <T> T copy(Field field, T destinationObj, Object sourceObj, Class sourseClass, boolean includePrivate) {
+	private static <T> T copy(Field field, T destinationObj, Object sourceObj, Class<?> sourseClass, boolean includePrivate) {
 		Field sourceField;
 		try {
 			sourceField = includePrivate ? sourseClass.getDeclaredField(field.getName()) : sourseClass.getField(field.getName());
