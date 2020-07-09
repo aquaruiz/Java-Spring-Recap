@@ -8,13 +8,6 @@ public class Application {
 		
 		OperationSystem os = OperationSystem.valueOf(currentOs.toUpperCase());
 		
-		if (currentOs.equals("Windows")) {
-			archiver = new WindowsArchiver();
-		} else if (currentOs.equals("Linux")) {
-			archiver = new LinuxArchiver();
-		} else {
-			throw new UnsupportedOperationException("Unknown operation system.");
-		}
 	}
 	
 	public static void main(String[] args) {
