@@ -1,6 +1,6 @@
 package factoryMethod;
 
-public class WindowsArchiver extends Archiver {
+public class WindowsArchiver implements Archiver {
 
 	@Override
 	public FileArchive createFileArchive() {

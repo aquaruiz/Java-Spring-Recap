@@ -1,7 +1,7 @@
 package factoryMethod;
 
-public abstract class Archiver {
+public interface Archiver {
 	
-	public abstract FileArchive createFileArchive();
+	FileArchive createFileArchive();
 
 }

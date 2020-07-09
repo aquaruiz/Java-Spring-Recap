@@ -1,6 +1,6 @@
 package factoryMethod;
 
-public class LinuxArchiver extends Archiver {
+public class LinuxArchiver implements Archiver {
 
 	@Override
 	public FileArchive createFileArchive() {
