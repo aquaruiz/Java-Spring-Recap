@@ -6,6 +6,8 @@ import abstractFactory.furnitures.Sofa;
 
 public interface AbstractFurnitureFactory {
 	Chair createChair();
+	
 	CoffeeTable createCoffeeTable();
+	
 	Sofa createSofa();
 }
