@@ -1,4 +1,4 @@
-package factory;
+package factoryMethod;
 
 import java.io.File;
 

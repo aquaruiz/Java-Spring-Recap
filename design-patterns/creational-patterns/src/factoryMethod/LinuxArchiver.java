@@ -1,4 +1,4 @@
-package factory;
+package factoryMethod;
 
 public class LinuxArchiver extends Archiver {
 
