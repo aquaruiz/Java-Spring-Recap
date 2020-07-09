@@ -2,7 +2,7 @@ package factoryMethod;
 
 public class ArchiverFactory {
 	
-	public Archiver createArchive(OperationSystem os) throws UnsupportedOperationException {
+	public static Archiver createArchive(OperationSystem os) throws UnsupportedOperationException {
 		switch (os) {
 			case LINUX:
 				return new LinuxArchiver();

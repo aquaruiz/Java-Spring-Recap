@@ -6,8 +6,14 @@ public class Application {
 	public static void initalize() {
 		String currentOs = System.getProperty("os.name");
 		
-		OperationSystem os = OperationSystem.valueOf(currentOs.toUpperCase());
-		
+		try {
+
+			OperationSystem os = OperationSystem.valueOf(currentOs.toUpperCase());
+				
+			archiver = ArchiverFactory.createArchive(os);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static void main(String[] args) {
