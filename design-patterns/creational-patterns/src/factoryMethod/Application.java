@@ -6,6 +6,8 @@ public class Application {
 	public static void initalize() {
 		String currentOs = System.getProperty("os.name");
 		
+		OperationSystem os = OperationSystem.valueOf(currentOs.toUpperCase());
+		
 		if (currentOs.equals("Windows")) {
 			archiver = new WindowsArchiver();
 		} else if (currentOs.equals("Linux")) {
