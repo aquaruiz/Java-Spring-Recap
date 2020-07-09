@@ -3,23 +3,16 @@ package factoryMethod;
 public class Application {
 	static Archiver archiver;
 	
-	public static void initalize() {
+	public static void main(String[] args) {
 		String currentOs = System.getProperty("os.name");
-		
-		try {
 
-			OperationSystem os = OperationSystem.valueOf(currentOs.toUpperCase());
-				
+		try {
+			OperationSystem os = OperationSystem.valueOf(currentOs);
 			archiver = ArchiverFactory.createArchive(os);
+		
+			FileArchive myNewArchive = archiver.createFileArchive();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public static void main(String[] args) {
-		initalize();
-		FileArchive myNewArchive = archiver.createFileArchive();
-		
-//		System.out.println(myNewArchive.getDetails());
 	}
 }
