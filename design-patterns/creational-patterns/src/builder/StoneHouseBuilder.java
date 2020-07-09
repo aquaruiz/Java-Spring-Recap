@@ -45,7 +45,9 @@ public class StoneHouseBuilder implements HouseBuilder {
 
 	@Override
 	public House getResult() {
-		return this.result;
+		House currentResult = this.result;
+		this.reset();
+		return currentResult;
 	}
 
 	@Override
