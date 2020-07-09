@@ -10,6 +10,8 @@ public class Application {
 			archiver = new WindowsArchiver();
 		} else if (currentOs.equals("Linux")) {
 			archiver = new LinuxArchiver();
+		} else {
+			throw new UnsupportedOperationException("Unknown operation system.");
 		}
 	}
 	
