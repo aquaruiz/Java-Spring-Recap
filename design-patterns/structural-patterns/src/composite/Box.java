@@ -10,19 +10,24 @@ public class Box extends Item {
 		this.items = new ArrayList<>();
 	}
 	
-	private void addItem(Item item) {
+	public void addItem(Item item) {
 		this.items.add(item);
 	}
 	
 	int calcBoxPrice() {
+		int totalPrice = 0;
+
 		if (this.items.size() == 0) {
-			return 0;
+			return totalPrice;
 		}
 		
-		int totalPrice = 0;
 		
 		for (Item item : items) {
-			
+			if (item instanceof Product) {
+				totalPrice += ((Product) item).getPrice();
+			} else {
+				totalPrice += ((Box) item).calcBoxPrice();
+			}
 		}
 		
 		return totalPrice;
