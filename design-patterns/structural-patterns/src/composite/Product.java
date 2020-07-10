@@ -9,6 +9,7 @@ public class Product extends Item {
 		this.price = price;
 	}
 	
+	@Override
 	public int getPrice() {
 		return price;
 	}

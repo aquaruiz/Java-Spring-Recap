@@ -14,7 +14,8 @@ public class Box extends Item {
 		this.items.add(item);
 	}
 	
-	int calcBoxPrice() {
+	@Override
+	public int getPrice() {
 		int totalPrice = 0;
 
 		if (this.items.size() == 0) {
@@ -23,11 +24,7 @@ public class Box extends Item {
 		
 		
 		for (Item item : items) {
-			if (item instanceof Product) {
-				totalPrice += ((Product) item).getPrice();
-			} else {
-				totalPrice += ((Box) item).calcBoxPrice();
-			}
+			totalPrice += item.getPrice();
 		}
 		
 		return totalPrice;

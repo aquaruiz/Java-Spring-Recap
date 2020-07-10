@@ -10,11 +10,12 @@ public class Application {
 		Product hat = new Product("hat", 350);
 
 		littleBox.addItem(sunGlasses);
-		
+
 		myBox.addItem(hat);
 		myBox.addItem(littleBox);
 		
-		int totalPrice = myBox.calcBoxPrice();
+		int totalPrice = myBox.getPrice();
+		System.out.println(totalPrice);
 	}
 
 }
