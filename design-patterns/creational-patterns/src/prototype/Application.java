@@ -8,6 +8,7 @@ public class Application {
 		myEmployees.addEmployee(new Employee("David"));
 		myEmployees.addEmployee(new Employee("Ivan"));
 		
-		Employees nextEmployees = myEmployees.clone();
+		Employees nextEmployees = myEmployees.shallowClone();
+		Employees moreEmployees = myEmployees.deepClone();
 	}
 }

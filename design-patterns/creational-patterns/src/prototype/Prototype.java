@@ -1,5 +1,6 @@
 package prototype;
 
 public interface Prototype <T> {
-	T clone();
+	T shallowClone();
+	T deepClone();
 }
