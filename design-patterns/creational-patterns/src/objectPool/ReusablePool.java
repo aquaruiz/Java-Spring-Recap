@@ -7,12 +7,16 @@ public class ReusablePool {
 	private List<Reusable> reusables;
 	private static ReusablePool instance;
 
-	private ReusablePool(int size){
+	private ReusablePool(int size) {
+		this.populateReusables(size);
+	}
+
+	private void populateReusables(int size) {
 		reusables = new ArrayList<Reusable>(size);
 		
-		for(int i=0;i<size;i++) {
+		for(int i = 0; i < size; i++) {
 			reusables.add(new Reusable());
-		}
+		}		
 	}
 
 	public static synchronized ReusablePool getInstance(){
