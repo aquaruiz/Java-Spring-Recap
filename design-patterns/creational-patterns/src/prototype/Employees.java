@@ -5,35 +5,28 @@ import java.util.List;
 
 public class Employees implements Prototype<Employees>{
 
-	private List<String> empList;
+	private List<Employee> empList;
 	
 	public Employees(){
-		empList = new ArrayList<String>();
+		empList = new ArrayList<Employee>();
 	}
 	
-	public Employees(List<String> list){
-		this.empList=list;
-	}
-
-	public void loadData(){
-		empList.add("Penka");
-		empList.add("Reni");
-		empList.add("David");
-		empList.add("Ivan");
+	public void addEmployee(Employee employee) {
+		this.empList.add(employee);
 	}
 	
-	public List<String> getAllEmpoyees() {
+	public List<Employee> getAllEmpoyees() {
 		return empList;
 	}
 
 	@Override
 	public Employees clone() {
-		List<String> temp = new ArrayList<String>();
+		Employees newEmployees = new Employees();
 		
-		for(String s : this.getAllEmpoyees()){
-			temp.add(s);
+		for(Employee s : this.getAllEmpoyees()){
+			newEmployees.addEmployee(s);
 		}
 		
-		return new Employees(temp);
+		return newEmployees;
 	}
 }
