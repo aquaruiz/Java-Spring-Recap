@@ -23,14 +23,14 @@ public class ReusablePool {
 		return instance; 
 	}
 
-	public Reusable acquireReusable() throws NotFreeInstanceException{
+	public Reusable acquireReusable() throws NoAvailableIntstanceException{
 		if (reusables.size() > 0){
 			Reusable r = reusables.get(reusables.size()-1);
 			reusables.remove(r);
 			
 			return r;			
 		} else {
-			throw(new NotFreeInstanceException());
+			throw(new NoAvailableIntstanceException());
 		}
 	}
 

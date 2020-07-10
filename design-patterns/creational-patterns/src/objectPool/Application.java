@@ -11,7 +11,7 @@ public class Application {
 			reusable1 = pool.acquireReusable();
 			reusable2 = pool.acquireReusable();
 			reusable3 = pool.acquireReusable();
-		} catch (NotFreeInstanceException e) {
+		} catch (NoAvailableIntstanceException e) {
 			e.printStackTrace();
 		}
 	}
