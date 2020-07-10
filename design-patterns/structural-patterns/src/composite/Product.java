@@ -13,4 +13,5 @@ public class Product extends Item {
 	public int getPrice() {
 		return price;
 	}
+
 }
