@@ -10,13 +10,16 @@ public class ReusablePool {
 	private ReusablePool(int size){
 		reusables = new ArrayList<Reusable>(size);
 		
-		for(int i=0;i<size;i++)
+		for(int i=0;i<size;i++) {
 			reusables.add(new Reusable());
+		}
 	}
 
-	public static ReusablePool getInstance(){
-		if (instance == null)
+	public static synchronized ReusablePool getInstance(){
+		if (instance == null) {
 			instance = new ReusablePool(2);
+		}
+		
 		return instance; 
 	}
 
