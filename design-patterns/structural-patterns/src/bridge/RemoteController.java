@@ -1,21 +1,17 @@
 package bridge;
 
 public class RemoteController {
-	private Device device;
-	private boolean on;
-	private boolean off;
+	protected Device device;
 	
 	public RemoteController(Device device) {
 		this.device = device;
 	}
 	
 	public void togglePower() {
-		if (on) {
-			on = false;
-			off = true;
+		if (device.isEnabled()) {
+			device.disable();
 		} else {
-			on = true;
-			off = false;
+			device.enable();
 		}
 	}
 	
