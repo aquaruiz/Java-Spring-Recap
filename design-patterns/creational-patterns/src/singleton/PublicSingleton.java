@@ -5,7 +5,7 @@ public class PublicSingleton {
 	
 	private PublicSingleton() {}
 	
-	public static PublicSingleton getInstance() {
+	public static synchronized PublicSingleton getInstance() {
 		return instance;
 	}
 }
