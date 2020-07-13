@@ -10,6 +10,8 @@ public class Application {
 		try {
 			reusable1 = pool.acquireReusable();
 			reusable2 = pool.acquireReusable();
+//			pool.releaseReusable(reusable2);
+
 			reusable3 = pool.acquireReusable();
 		} catch (NoAvailableIntstanceException e) {
 			e.printStackTrace();
