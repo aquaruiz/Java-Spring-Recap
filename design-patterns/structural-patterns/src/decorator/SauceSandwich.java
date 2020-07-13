@@ -1,27 +1,21 @@
 package decorator;
 
-public class SauceSandwich extends SandwichDecorator {
+public class SauceSandwich implements Sandwich{
 	private Sandwich sandwich;
-	private String sauce;
+	private Sauce sauce;
 	
-	public SauceSandwich(Sandwich sandwich) {
+	public SauceSandwich(Sandwich sandwich, Sauce sauce) {
 		this.sandwich = sandwich;
-		this.sauce = "ketchup";
+		this.sauce = sauce;
 	}
 	
 	@Override
 	public String getIngredients() {
-		return this.sandwich.getIngredients() + ", " + sauce;
+		return this.sandwich.getIngredients() + ", " + sauce.name().toLowerCase();
 	}
 
 	@Override
 	public int getPrice() {
 		return this.sandwich.getPrice() + 1;
 	}
-
-	@Override
-	public void makeWith(String sauce) {
-		this.sauce = sauce;
-	}
-
 }
