@@ -8,10 +8,10 @@ public class CheeseSoup extends SoupDecorator implements Soupable {
 	
 	public CheeseSoup(Soupable soup, String cheese) {
 		super(soup);
-		super.ingredients = Arrays.asList(soup.getIngredients(), cheese);
+		super.extraIngredients = Arrays.asList(cheese);
 	}
 	
 	public double getPrice() {
-		return this.soup.getPrice() + Price.MEAT_PRICE * super.ingredients.size();
+		return this.soup.getPrice() + Price.CHEESE_PRICE * super.extraIngredients.size();
 	}
 }
