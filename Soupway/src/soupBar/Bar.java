@@ -1,59 +1,68 @@
 package soupBar;
 
 import exception.IllegalCloningOfSoupSellerException;
+import logging.Logger;
+import menu.CheeseSoup;
+import menu.MeatSoup;
 import menu.Soup;
 import order.Order;
 import order.OrderBuilder;
 
 public class Bar implements Runnable {
 
-	private SoupSeller mySeller = null;
-
-	public Bar() {}
+	public Bar() {
+		// add observer
+	}
 	
 	@Override
 	public void run() {
-		callSoupSeller();
+		SoupSeller soupSeller = callSoupSeller();
 		
-		Order ordered = placeOrder();
-		
-		pay(ordered);
+		if (soupSeller != null) {
+			Order ordered = placeOrderTo(soupSeller);
+			pay(ordered, soupSeller);
+		} else {
+			Logger.logThis("Come back later");
+		}
 	}
 
-	private void pay(Order ordered) {
+	private void pay(Order ordered, SoupSeller soupSeller) {
 		// pay
 		double price = ordered.calcPrice();
 		// eat and go home
-		mySeller.payBill(ordered, price);
-		
-		System.out.println();			
+		soupSeller.cashPayment(ordered, price);
 	}
 
-	private Order placeOrder() {
+	private Order placeOrderTo(SoupSeller mySeller) {
 		// call waiter, or cook
 		OrderBuilder myOrder = mySeller.makeOrder();
 		// build soup
 		Soup mySoup = new Soup();
-		myOrder.addSoup(mySoup)
-			.addSoup(mySoup);
+		MeatSoup mySoupWithChicken = new MeatSoup(mySoup, "Chicken");
 		
-		myOrder.addDrink("Cola");
-		// choose bread
-		myOrder.addBread("plain");
+		CheeseSoup mySoupWithChickenAndCheese = new CheeseSoup(mySoupWithChicken, "Parmesan");
 		
 		// place order for soup, place order for bread
+
+		myOrder.addSoup(mySoup)
+//			.addSoup(mySoup)
+			.addSoup(mySoupWithChicken)
+			.addSoup(mySoupWithChickenAndCheese)
+			.addDrink("Cola")
+			.addBread("plain");
+		
 		// get price, send event to print recipe
 		Order ordered = myOrder.buildOrder();
 		return ordered;
 	}
 
-	private void callSoupSeller() {
-		SoupSeller mySeller = null;
+	private SoupSeller callSoupSeller() {
 		try {
-			mySeller = SoupSeller.getInstance();
+			return SoupSeller.getInstance();
 		} catch (IllegalCloningOfSoupSellerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}		
 	}
 

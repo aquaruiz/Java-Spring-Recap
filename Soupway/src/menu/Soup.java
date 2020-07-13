@@ -3,6 +3,7 @@ package menu;
 import java.util.Arrays;
 import java.util.List;
 
+import constants.Price;
 import constants.SoupType;
 
 public class Soup implements Soupable {
@@ -14,7 +15,7 @@ public class Soup implements Soupable {
 	public Soup() {
 		this.baseType = SoupType.VEGETARIAN;
 		this.ingredients = Arrays.asList("Vegetables");
-		this.price = 5;
+		this.price = Price.VEGERATIAN_SOUP_PRICE;
 	}
 
 	@Override
