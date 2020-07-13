@@ -1,6 +1,6 @@
 package decorator;
 
-public class SauceSandwich implements Sandwich{
+public class SauceSandwich implements Sandwich {
 	private Sandwich sandwich;
 	private Sauce sauce;
 	

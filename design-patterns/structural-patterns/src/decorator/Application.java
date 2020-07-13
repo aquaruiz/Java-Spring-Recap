@@ -2,7 +2,7 @@ package decorator;
 
 public class Application {
 
-  public static void main( String[] args ) {
+  public static void main(String[] args) {
 	  Sandwich mySandwich = new VegetarianSandwich();
 	  SauceSandwich mySandwichWithSauce = new SauceSandwich(mySandwich, Sauce.KETCHUP);
 	  
