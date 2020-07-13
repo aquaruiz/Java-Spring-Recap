@@ -1,5 +1,5 @@
 package order;
-import menu.Soup;
+import menu.Soupable;
 
 public class OrderBuilder {
 	private Order order;
@@ -8,7 +8,7 @@ public class OrderBuilder {
 		this.order = new Order();
 	}
 
-	public OrderBuilder addSoup(Soup soup) {
+	public OrderBuilder addSoup(Soupable soup) {
 		this.order.addSoup(soup);
 		return this;
 	}

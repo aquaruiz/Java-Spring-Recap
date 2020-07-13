@@ -2,10 +2,12 @@ package order;
 import java.util.ArrayList;
 import java.util.List;
 
+import constants.Price;
 import menu.Soup;
+import menu.Soupable;
 
 public class Order {
-	private List<Soup> soups;
+	private List<Soupable> soups;
 	private List<String> bread;
 	private List<String> drinks;
 	// or may be Maps
@@ -21,7 +23,7 @@ public class Order {
 		this.isPaid = false;
 	}
 	
-	public void addSoup(Soup soup) {
+	public void addSoup(Soupable soup) {
 		this.soups.add(soup); // check if already added
 	}
 	
@@ -34,9 +36,15 @@ public class Order {
 	}
 	
 	public double calcPrice() {
-		double totalPrice = this.soups.size() * 5 
-				+ this.bread.size() * 2 
-				+ this.drinks.size() * 3;
+		double totalPrice = 0;
+		// calc soups price
+		for (Soupable soup : this.soups) {
+			double currentPrice = soup.getPrice();
+			totalPrice += currentPrice;
+		}
+		
+		totalPrice += this.bread.size() * Price.BREAD_PRICE
+				+ this.drinks.size() * Price.DRINK_PRICE;
 		
 		this.price = totalPrice;
 		return this.price;
@@ -45,6 +53,7 @@ public class Order {
 	public void pay() {
 		this.isPaid = true;
 		// Empty table from items
+		// notify observer
 	}
 	
 	public double getPrice() {

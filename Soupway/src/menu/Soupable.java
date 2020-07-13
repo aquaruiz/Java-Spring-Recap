@@ -1,8 +1,10 @@
 package menu;
 
+import java.util.List;
+
 public interface Soupable {
 	
-	String getIngredients();
+	List<String> getIngredients();
 
 	double getPrice();
 

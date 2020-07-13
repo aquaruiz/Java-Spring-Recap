@@ -1,16 +1,19 @@
 package menu;
 
+import java.util.Arrays;
+import java.util.List;
+
 import constants.SoupType;
 
 public class Soup implements Soupable {
 
 	private SoupType baseType;
-	private String ingredients;
+	private List<String> ingredients;
 	private double price;
 
 	public Soup() {
 		this.baseType = SoupType.VEGETARIAN;
-		this.ingredients = "Vegetables";
+		this.ingredients = Arrays.asList("Vegetables");
 		this.price = 5;
 	}
 
@@ -20,7 +23,7 @@ public class Soup implements Soupable {
 	}
 
 	@Override
-	public String getIngredients() {
+	public List<String> getIngredients() {
 		return this.ingredients;
 	}
 
