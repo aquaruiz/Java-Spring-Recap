@@ -18,17 +18,22 @@ public class HouseBuilderDirector {
 	}
 
 	public House makeFast() {
-		return this.builder.buildWalls().buildDoors().buildRoof().buildWindows().getResult();
+		return this.builder
+				.addWalls()
+				.addDoors()
+				.addRoof()
+				.addWindows()
+				.build();
 	}
 	
 	public House makeGood() {
 		return this.builder.
-				buildWalls()
-				.buildDoors()
-				.buildRoof()
-				.buildWindows()
-				.buildGarage()
-				.buildPool()
-				.getResult();
+				addWalls()
+				.addDoors()
+				.addRoof()
+				.addWindows()
+				.addGarage()
+				.addPool()
+				.build();
 	}
 }

@@ -2,13 +2,13 @@ package builder;
 
 interface HouseBuilder {
 	
-	HouseBuilder buildWalls();
-	HouseBuilder buildDoors();
-	HouseBuilder buildWindows();
-	HouseBuilder buildRoof();
-	HouseBuilder buildGarage();
-	HouseBuilder buildPool();
+	HouseBuilder addWalls();
+	HouseBuilder addDoors();
+	HouseBuilder addWindows();
+	HouseBuilder addRoof();
+	HouseBuilder addGarage();
+	HouseBuilder addPool();
 	boolean reset();
 	
-	House getResult();
+	House build();
 }

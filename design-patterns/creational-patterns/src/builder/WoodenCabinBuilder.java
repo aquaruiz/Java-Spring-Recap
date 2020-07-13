@@ -8,43 +8,43 @@ public class WoodenCabinBuilder implements HouseBuilder {
 	}
 	
 	@Override
-	public HouseBuilder buildWalls() {
+	public HouseBuilder addWalls() {
 		this.result.setWalls(4);
 		return this;
 	}
 
 	@Override
-	public HouseBuilder buildDoors() {
+	public HouseBuilder addDoors() {
 		this.result.setDoor(1);
 		return this;
 	}
 
 	@Override
-	public HouseBuilder buildWindows() {
+	public HouseBuilder addWindows() {
 		this.result.setWindows(2);
 		return this;
 	}
 
 	@Override
-	public HouseBuilder buildRoof() {
+	public HouseBuilder addRoof() {
 		this.result.setRoof(1);
 		return this;
 	}
 
 	@Override
-	public HouseBuilder buildGarage() {
+	public HouseBuilder addGarage() {
 		this.result.setGarage(false);
 		return this;
 	}
 
 	@Override
-	public HouseBuilder buildPool() {
+	public HouseBuilder addPool() {
 			this.result.setPool(false);
 		return this;
 	}
 
 	@Override
-	public House getResult() {
+	public House build() {
 		House currentResult = this.result;
 		this.reset();
 		return currentResult;
