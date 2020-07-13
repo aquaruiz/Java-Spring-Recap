@@ -2,26 +2,26 @@ package menu;
 
 import constants.SoupType;
 
-public class Soup implements Item {
-	
+public class Soup implements Soupable {
+
 	private SoupType baseType;
-	private String name;
+	private String ingredients;
 	private double price;
-	
+
 	public Soup() {
-		// TODO Auto-generated constructor stub
+		this.baseType = SoupType.VEGETARIAN;
+		this.ingredients = "Vegetables";
+		this.price = 5;
 	}
-	
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	@Override
 	public double getPrice() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.price;
 	}
-	
-	
+
+	@Override
+	public String getIngredients() {
+		return this.ingredients;
+	}
+
 }
