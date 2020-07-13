@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ReusablePool {
 	private List<Reusable> availableReusables;
-	private List<Reusable> usedReusables;
+	private List<Reusable> lockedReusables;
 	private static ReusablePool instance;
 
 	private ReusablePool(int size) {
@@ -14,7 +14,7 @@ public class ReusablePool {
 
 	private void populateReusables(int size) {
 		availableReusables = new ArrayList<>(size);
-		usedReusables = new ArrayList<>();
+		lockedReusables = new ArrayList<>();
 		
 		for(int i = 0; i < size; i++) {
 			availableReusables.add(new Reusable());
@@ -33,7 +33,7 @@ public class ReusablePool {
 		if (availableReusables.size() > 0){
 			Reusable r = availableReusables.get(availableReusables.size()-1);
 			availableReusables.remove(r);
-			usedReusables.add(r);
+			lockedReusables.add(r);
 			return r;			
 		} else {
 			throw new NoAvailableIntstanceException();
@@ -41,9 +41,9 @@ public class ReusablePool {
 	}
 
 	public void releaseReusable(Reusable r) {
-		if (usedReusables.contains(r)) {
+		if (lockedReusables.contains(r)) {
 			availableReusables.add(r);
-			usedReusables.remove(r);
+			lockedReusables.remove(r);
 		}
 	}
 }
