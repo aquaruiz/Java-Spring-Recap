@@ -36,7 +36,7 @@ public class ReusablePool {
 			usedReusables.add(r);
 			return r;			
 		} else {
-			throw(new NoAvailableIntstanceException());
+			throw new NoAvailableIntstanceException();
 		}
 	}
 
