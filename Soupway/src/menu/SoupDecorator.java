@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class SoupDecorator implements Soupable {
-	protected Soupable soup;
+public abstract class SoupDecorator implements Soup {
+	protected Soup soup;
 	protected List<String> mainIngredients; 
 	protected List<String> extraIngredients; 
 	
-	public SoupDecorator(Soupable soup) {
+	protected SoupDecorator(Soup soup) {
 		this.soup = soup;
 		this.mainIngredients = new ArrayList<>(soup.getIngredients());
+//		if (soup instanceof SoupDecorator) {
+//			this.mainIngredients.addAll(((SoupDecorator)soup).getExtraIngredients());
+//		}
+		
 		this.extraIngredients = new ArrayList<>();
 	}
 	
@@ -31,6 +35,10 @@ public abstract class SoupDecorator implements Soupable {
 		return Collections.unmodifiableList(ingredients);
 	}
 
+//	public List<String> getExtraIngredients() {
+//		return extraIngredients;
+//	}
+	
 	public abstract double getPrice();
 	
 	public void addMore(String ingredient) {

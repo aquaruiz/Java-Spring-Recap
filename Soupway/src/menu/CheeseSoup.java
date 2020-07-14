@@ -3,15 +3,12 @@ package menu;
 import java.util.Arrays;
 
 import constants.Price;
-import constants.SoupType;
 
-public class CheeseSoup extends SoupDecorator implements Soupable {
-	private SoupType baseType;
+public class CheeseSoup extends SoupDecorator implements Soup {
 	private double price;
 	
-	public CheeseSoup(Soupable soup, String cheese) {
+	public CheeseSoup(Soup soup, String cheese) {
 		super(soup);
-		baseType = SoupType.CHEESE;
 		super.extraIngredients = Arrays.asList(cheese);
 	}
 	
