@@ -15,7 +15,6 @@ public class WebOrder extends OrderTemplate {
 		System.out.println("Process payment without Card present");		
 	}
 
-	@Override
 	public void printReceipt() {
 		System.out.println("Email receipt");		
 	}
@@ -24,5 +23,4 @@ public class WebOrder extends OrderTemplate {
 	public void deliver() {
 		System.out.println("Ship the item to address");		
 	}
-
 }

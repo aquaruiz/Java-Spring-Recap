@@ -20,13 +20,14 @@ public abstract class OrderTemplate {
 		checkout();
 	
 		pay();
-		
-		if (isGift) {
+
+    if (isGift) {
 			wrapGift();
 		} else {
 			printReceipt();
 		}
 
 		deliver();
+		}
 	}
 }
