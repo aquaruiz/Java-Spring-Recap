@@ -51,10 +51,7 @@ public class JdbcFacade {
 			
 			while(rs.next()) {
 				System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3));
-				Address address = new Address();
-				address.setId(rs.getString(1));
-				address.setStreetName(rs.getString(2));
-				address.setCity(rs.getString(3));
+				Address address = new Address(rs.getString(1), rs.getString(2), rs.getString(3));
 				
 				addresses.add(address);
 			}
