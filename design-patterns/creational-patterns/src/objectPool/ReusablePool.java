@@ -31,19 +31,19 @@ public class ReusablePool {
 
 	public Reusable acquireReusable() throws NoAvailableIntstanceException{
 		if (availableReusables.size() > 0){
-			Reusable r = availableReusables.get(availableReusables.size()-1);
-			availableReusables.remove(r);
-			lockedReusables.add(r);
-			return r;			
+			Reusable reusable = availableReusables.get(availableReusables.size()-1);
+			availableReusables.remove(reusable);
+			lockedReusables.add(reusable);
+			return reusable;			
 		} else {
 			throw new NoAvailableIntstanceException();
 		}
 	}
 
-	public void releaseReusable(Reusable r) {
-		if (lockedReusables.contains(r)) {
-			availableReusables.add(r);
-			lockedReusables.remove(r);
+	public void releaseReusable(Reusable reusable) {
+		if (lockedReusables.contains(reusable)) {
+			availableReusables.add(reusable);
+			lockedReusables.remove(reusable);
 		}
 	}
 }
