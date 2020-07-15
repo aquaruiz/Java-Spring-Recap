@@ -4,29 +4,29 @@ public abstract class OrderTemplate {
 	
 	public boolean isGift;
 
-	public abstract void doCheckout();
+	public abstract void checkout();
 
-	public abstract void doPayment();
+	public abstract void pay();
 
-	public abstract void doReceipt();
+	public abstract void printReceipt();
 
-	public abstract void doDelivery();
+	public abstract void deliver();
 
 	public final void wrapGift() {
 		System.out.println("Gift wrapped.");
 	}
 
 	public final void processOrder() {
-		doCheckout();
+		checkout();
 	
-		doPayment();
+		pay();
 		
 		if (isGift) {
 			wrapGift();
 		} else {
-			doReceipt();
+			printReceipt();
 		}
 
-		doDelivery();
+		deliver();
 	}
 }
