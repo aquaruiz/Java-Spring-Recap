@@ -18,6 +18,38 @@ public class MeatSoup extends SoupDecorator implements Soup {
 	}
 	
 	@Override
+	public boolean equals(Object other) {
+		if (other == null) {
+			return false;
+		}
+		
+		if (this == other) {
+			return true;
+		}
+		
+		if (other instanceof MeatSoup) {
+			MeatSoup anotherSoup = (MeatSoup) other;
+			
+			if (anotherSoup.getPrice() != this.getPrice()) {
+				return false;
+			}
+
+			if (!anotherSoup.getPrintableIngredients().equals(this.getPrintableIngredients())) {
+				return false;
+			}
+			
+			return true;
+		}
+		
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return 33 + (int)this.getPrice() + this.getPrintableIngredients().hashCode();
+	}
+	
+	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("Meat Soup.")

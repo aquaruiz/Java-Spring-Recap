@@ -40,10 +40,12 @@ public class Cashier {
 		
 		if (wannaPay) {
 			order.pay();
-			System.out.println("All set. Bye!");
+			System.out.println("All set.");
 		}
 		
 		this.cashListener.notify(order);
+		System.out.println("Bye!");
+
 	}
 
 }

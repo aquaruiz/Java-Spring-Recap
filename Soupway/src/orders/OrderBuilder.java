@@ -7,30 +7,43 @@ import menu.Soup;
 
 public class OrderBuilder {
 	private Order order;
-	
+
 	public OrderBuilder() {
 		this.order = new Order();
 	}
 
 	public OrderBuilder addSoup(Soup soup) {
-		this.order.addSoup(soup);
+		if (soup != null) {
+			this.order.addSoup(soup);
+		}
+		
 		return this;
 	}
 
 	public OrderBuilder addDrink(Enum<Drinks> drink) {
-		this.order.addDrink(drink); 
-		return this;		
+		if (drink != null) {
+			this.order.addDrink(drink);
+		}
+
+		return this;
 	}
-	
+
 	public OrderBuilder addBread(Enum<Bread> bread) {
-		this.order.addBread(bread); 
-		return this;		
+		if (bread != null) {
+			this.order.addBread(bread);
+		}
+
+		return this;
 	}
 
 	public OrderBuilder addIcrecream(Enum<IceCream> icecream) {
-		this.order.addIcecream(icecream); 
-		return this;		
+		if (icecream != null) {
+			this.order.addIcecream(icecream);
+		}
+
+		return this;
 	}
+
 	public Order build() {
 		return this.order;
 	}
