@@ -6,7 +6,6 @@ public class Book implements Visitable {
 	private double weight;
 
 	public Book(double price, double weight) {
-		super();
 		this.price = price;
 		this.weight = weight;
 	}
