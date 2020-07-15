@@ -1,14 +1,14 @@
 package strategy;
 
 public class Context {
-	private Strategy strategy;
+	private MathStrategy strategy;
 	
-	public void setStrategy(Strategy concreteStrategy) {
+	public void setStrategy(MathStrategy concreteStrategy) {
 		this.strategy = concreteStrategy;	
 	}
 
 	public int executeStrategy(int firstNumber, int secondNumber) {
-		return this.strategy.executeStrategy(firstNumber, secondNumber);
+		return this.strategy.execute(firstNumber, secondNumber);
 	}
 
 }

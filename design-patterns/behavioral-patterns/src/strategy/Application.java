@@ -14,14 +14,14 @@ public class Application {
 
 		switch (operation) {
 			case "+":
-				context.setStrategy(new ConcreteStrategyAdd());
+				context.setStrategy(new AddStrategy());
 				break;
 			case "-":
-				context.setStrategy(new ConcreteStrategySubtract());
+				context.setStrategy(new SubtractStrategy());
 	
 				break;
 			case "*":
-				context.setStrategy(new ConcreteStrategyMultiply());
+				context.setStrategy(new MultiplyStrategy());
 	
 				break;
 	
