@@ -31,7 +31,7 @@ public class OrderBuilder {
 		this.order.addIcecream(icecream); 
 		return this;		
 	}
-	public Order buildOrder() {
+	public Order build() {
 		return this.order;
 	}
 }

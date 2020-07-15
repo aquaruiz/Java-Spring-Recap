@@ -33,7 +33,7 @@ public class SoupSeller {
 			.addBread(orderedBread)
 			.addIcrecream(orderedIcecream);
 		
-		return orderBuilder.buildOrder();
+		return orderBuilder.build();
 		
 	}
 }
