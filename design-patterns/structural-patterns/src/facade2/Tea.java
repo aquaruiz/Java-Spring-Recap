@@ -1,8 +1,8 @@
 package facade2;
 
-public class Tee {
+public class Tea {
 
-	public Tee() {
+	public Tea() {
 		// TODO Auto-generated constructor stub
 	}
 }

@@ -1,6 +1,6 @@
 package facade2;
 
-public class BigTeepot implements TeeMaker {
+public class BigTeapot implements TeaMaker {
 
 	@Override
 	public void pourWater(Water water) {
@@ -8,8 +8,8 @@ public class BigTeepot implements TeeMaker {
 	}
 
 	@Override
-	public void placeCup(Tee cup) {
-		System.out.println("Placing tee bag...");		
+	public void placeCup(Tea cup) {
+		System.out.println("Placing tea bag...");		
 	}
 
 	@Override
@@ -18,9 +18,9 @@ public class BigTeepot implements TeeMaker {
 	}
 
 	@Override
-	public Tee finishBrewing() {
+	public Tea finishBrewing() {
 		System.out.println("Done brewing. Enjoy!");
-		return new Tee();
+		return new Tea();
 	}
 
 }

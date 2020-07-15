@@ -1,12 +1,12 @@
 package facade2;
 
-public interface TeeMaker {
+public interface TeaMaker {
 	
 	public void pourWater(Water water);
 
-	public void placeCup(Tee cup);
+	public void placeCup(Tea cup);
 
 	public void startBrewing();
 
-	public Tee finishBrewing();
+	public Tea finishBrewing();
 }

@@ -1,11 +1,11 @@
 package facade2;
 
-public class Teepot implements TeePotFacade {
+public class Teapot implements TeapotFacade {
 
 	@Override
-	public Tee serveTee() {
-		TeeMaker brewer = new BigTeepot();
-		Tee cup = new Tee();
+	public Tea serveTee() {
+		TeaMaker brewer = new BigTeapot();
+		Tea cup = new Tea();
 
 		brewer.placeCup(cup);
 		brewer.pourWater(new Water());
