@@ -7,4 +7,7 @@ public interface Soup {
 	List<String> getIngredients();
 
 	double getPrice();
+	
+	@Override
+	String toString();
 }

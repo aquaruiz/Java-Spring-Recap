@@ -1,5 +1,6 @@
 package bar;
 
+import cashService.CashListener;
 import exceptions.IllegalCloningException;
 import exceptions.NoFreeSoupSellersException;
 import orders.Order;
@@ -24,7 +25,6 @@ public class Bar implements Runnable {
 		Order order = soupSeller.processCustomerOrder(orderBuilder);
 
 		cashier.collectCustomerPayment(order);
-		// TODO print reciepe
 	}
 
 }

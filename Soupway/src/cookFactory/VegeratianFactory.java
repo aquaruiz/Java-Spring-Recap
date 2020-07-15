@@ -6,12 +6,10 @@ import menu.Soup;
 import orders.CustomerInteractor;
 
 public class VegeratianFactory implements AbstractCookFactory {
-	private CustomerInteractor customerInteractor;
 	private CookFacade cookFacade;
 
-	public VegeratianFactory(CustomerInteractor customerInteractor) {
-		this.customerInteractor = customerInteractor;
-		this.cookFacade = new CookFacade(customerInteractor);
+	public VegeratianFactory() {
+		this.cookFacade = new CookFacade();
 	}
 
 	@Override

@@ -16,4 +16,17 @@ public class MeatSoup extends SoupDecorator implements Soup {
 		price = super.soup.getPrice() + Price.MEAT_PRICE * super.extraIngredients.size(); 
 		return price;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("Meat Soup.")
+			.append(System.lineSeparator())
+			.append("Ingredients: ")
+			.append(getPrintableIngredients())
+			.append(System.lineSeparator())
+			.append("Price: ")
+			.append(getPrice());
+		return stringBuilder.toString();
+	}
 }

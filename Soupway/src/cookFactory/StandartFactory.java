@@ -3,14 +3,12 @@ package cookFactory;
 import constants.Bread;
 import constants.IceCream;
 import menu.Soup;
-import orders.CustomerInteractor;
 
 public class StandartFactory implements AbstractCookFactory {
-	private CustomerInteractor customerInteractor; // TODO remove it from here
 	private CookFacade cookFacade;
 
-	public StandartFactory(CustomerInteractor customerInteractor) {
-		this.cookFacade = new CookFacade(customerInteractor);
+	public StandartFactory() {
+		this.cookFacade = new CookFacade();
 	}
 
 	@Override
@@ -19,7 +17,6 @@ public class StandartFactory implements AbstractCookFactory {
 		mySoup = cookFacade.addMeat(mySoup);
 		mySoup = cookFacade.addCheese(mySoup);
 
-		// print result
 		return mySoup;
 	}
 

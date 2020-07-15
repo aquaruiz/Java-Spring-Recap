@@ -15,8 +15,8 @@ import orders.CustomerInteractor;
 public class CookFacade {
 	private CustomerInteractor customerInteractor;
 	 
-	public CookFacade(CustomerInteractor customerInteractor) {
-		this.customerInteractor = customerInteractor;
+	public CookFacade() {
+		this.customerInteractor = CustomerInteractor.getInstance();
 	}
 	
 	public Soup cookVegetarianSoup() {

@@ -6,13 +6,31 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import bar.Cashier;
+import bar.SoupSeller;
+import exceptions.IllegalCloningException;
+
 public class CustomerInteractor {
+	private static volatile CustomerInteractor instance;
+
 	public Scanner scanner;
 
-	public CustomerInteractor() {
+	private CustomerInteractor() {
 		this.scanner = new Scanner(System.in);
 	}
 
+	public static CustomerInteractor getInstance() {
+		if (instance == null) {
+			synchronized (CustomerInteractor.class) {
+				if (instance == null)
+					instance = new CustomerInteractor();
+				return instance;
+			}
+		}
+
+		return instance;
+	}
+	
 	public String getCustomerStringInput() {
 		return this.scanner.nextLine().trim().toLowerCase();
 	}

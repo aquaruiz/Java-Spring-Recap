@@ -67,4 +67,25 @@ public class Order {
 	public double getPrice() {
 		return price;
 	}
+	
+	public boolean isPaid() {
+		return isPaid;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("Your order:")
+			.append(System.lineSeparator())
+			.append("Soup: ")
+			.append(soups.get(0).toString())
+			.append(System.lineSeparator())
+			.append("Bread: ")
+			.append(bread.get(0))
+			.append(System.lineSeparator())
+			.append("Total Price: ")
+			.append(getPrice());
+		
+		return stringBuilder.toString();
+	}
 }

@@ -11,7 +11,7 @@ public class VegetarianSoup implements Soup {
 	private double price;
 
 	public VegetarianSoup() {
-		this.ingredients = Arrays.asList("Vegetables");
+		this.ingredients = Arrays.asList("vegetables");
 		this.price = Price.VEGERATIAN_SOUP_PRICE;
 	}
 
@@ -23,5 +23,18 @@ public class VegetarianSoup implements Soup {
 	@Override
 	public List<String> getIngredients() {
 		return this.ingredients;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("Vegeratian Soup.")
+			.append(System.lineSeparator())
+			.append("Ingredients: ")
+			.append("vegetables")
+			.append(System.lineSeparator())
+			.append("Price: ")
+			.append(getPrice());
+		return stringBuilder.toString();
 	}
 }

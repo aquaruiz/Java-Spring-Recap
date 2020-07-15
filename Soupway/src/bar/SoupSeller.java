@@ -1,5 +1,6 @@
 package bar;
 
+import cashService.RecipeListener;
 import constants.Bread;
 import constants.IceCream;
 import cookFactory.AbstractCookFactory;
@@ -15,7 +16,7 @@ public class SoupSeller {
 	
 	public SoupSeller(String name) {
 		this.name = name;
-		this.customerInteractor = new CustomerInteractor();
+		this.customerInteractor = CustomerInteractor.getInstance();
 	}
 
 	public Order processCustomerOrder(OrderBuilder orderBuilder) {
@@ -23,7 +24,7 @@ public class SoupSeller {
 		
 		boolean isVegetarian = customerInteractor.getCustomerBoolenInput();
 		
-		AbstractCookFactory abstractFactory = CookFactoryManager.getFactory(isVegetarian, customerInteractor);
+		AbstractCookFactory abstractFactory = CookFactoryManager.getFactory(isVegetarian);
 
 		Soup orderedSoup = abstractFactory.cookSoup();
 		Enum<Bread> orderedBread = abstractFactory.bakeBread();
@@ -34,6 +35,5 @@ public class SoupSeller {
 			.addIcrecream(orderedIcecream);
 		
 		return orderBuilder.build();
-		
 	}
 }
