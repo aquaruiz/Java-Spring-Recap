@@ -1,51 +1,51 @@
 package builder;
 
 public class WoodenCabinBuilder implements HouseBuilder {
-	private House result;
+	private House woodenCabin;
 
 	public WoodenCabinBuilder() {
-		this.result = new House();
+		this.woodenCabin = new House();
 	}
 	
 	@Override
 	public HouseBuilder addWalls() {
-		this.result.setWalls(4);
+		this.woodenCabin.setWalls(4);
 		return this;
 	}
 
 	@Override
 	public HouseBuilder addDoors() {
-		this.result.setDoor(1);
+		this.woodenCabin.setDoor(1);
 		return this;
 	}
 
 	@Override
 	public HouseBuilder addWindows() {
-		this.result.setWindows(2);
+		this.woodenCabin.setWindows(2);
 		return this;
 	}
 
 	@Override
 	public HouseBuilder addRoof() {
-		this.result.setRoof(1);
+		this.woodenCabin.setRoof(1);
 		return this;
 	}
 
 	@Override
 	public HouseBuilder addGarage() {
-		this.result.setGarage(false);
+		this.woodenCabin.setGarage(false);
 		return this;
 	}
 
 	@Override
 	public HouseBuilder addPool() {
-			this.result.setPool(false);
+			this.woodenCabin.setPool(false);
 		return this;
 	}
 
 	@Override
 	public House build() {
-		House currentResult = this.result;
+		House currentResult = this.woodenCabin;
 		this.reset();
 		return currentResult;
 	}
@@ -53,7 +53,7 @@ public class WoodenCabinBuilder implements HouseBuilder {
 
 	@Override
 	public boolean reset() {
-		this.result = new House();
+		this.woodenCabin = new House();
 		return true;
 	}
 }
