@@ -13,6 +13,10 @@ public class IcecreamRepository implements Iterable<String> {
 	}
 	
 	public void addIcecream(String newIcecream) {
+		if (newIcecream == null) {
+			return;
+		}
+		
 		if(index == icecreams.length) {
 			String [] moreIcecreams = new String[icecreams.length + 5];
 			System.arraycopy( icecreams, 0, moreIcecreams, 0, icecreams.length );
