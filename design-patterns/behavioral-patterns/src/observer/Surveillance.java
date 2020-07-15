@@ -1,12 +1,14 @@
 package observer;
 
-class Surveillance extends CheckList implements AlarmListener {
-    public void alarm() {
-        System.out.println("Surveillance - by the numbers:");
-        byTheNumbers();
-    }
+class Surveillance implements AlarmListener {
+	public void alarm() {
+		System.out.println("Surveillance - by the numbers:");
+		System.out.println("   establish a perimeter");
+		isolate();
+		System.out.println("   identify the source");
+	}
 
-    protected void isolate() {
-        System.out.println("   train the cameras");
-    }
+	protected void isolate() {
+		System.out.println("   train the cameras");
+	}
 }

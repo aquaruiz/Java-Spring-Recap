@@ -6,6 +6,12 @@ public class Application {
 		sensorSystem.register(new Gates());
 		sensorSystem.register(new Lighting());
 		sensorSystem.register(new Surveillance());
-		sensorSystem.soundTheAlarm();
+		
+		Thief thief = new Thief();
+		thief.enter();
+		
+		if (thief.isEntering()) {
+			sensorSystem.soundTheAlarm();
+		}
 	}
 }

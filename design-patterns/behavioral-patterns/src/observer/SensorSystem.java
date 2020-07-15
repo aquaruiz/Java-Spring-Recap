@@ -1,18 +1,18 @@
 package observer;
 
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SensorSystem {
-	private Vector listeners = new Vector();
+	private List<AlarmListener> listeners = new ArrayList<>();
 
 	public void register(AlarmListener alarmListener) {
-		listeners.addElement(alarmListener);
+		listeners.add(alarmListener);
 	}
 
 	public void soundTheAlarm() {
-		for (Enumeration e = listeners.elements(); e.hasMoreElements();) {
-			((AlarmListener) e.nextElement()).alarm();
+		for (AlarmListener alarmListener : listeners) {
+			alarmListener.alarm();
 		}
 	}
 }
