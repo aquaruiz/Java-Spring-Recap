@@ -28,6 +28,5 @@ public abstract class OrderTemplate {
 		}
 
 		deliver();
-		}
 	}
 }
