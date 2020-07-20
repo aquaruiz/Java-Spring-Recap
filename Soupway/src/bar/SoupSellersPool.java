@@ -1,14 +1,14 @@
 package bar;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 import constants.Names;
 import exceptions.NoFreeSoupSellersException;
 
 public class SoupSellersPool {
-	private List<SoupSeller> freeSoupSellers;
-	private List<SoupSeller> busySoupSellers;
+	private Queue<SoupSeller> freeSoupSellers;
+	private Queue<SoupSeller> busySoupSellers;
 	private static SoupSellersPool instance;
 
 	private SoupSellersPool(int size) {
@@ -16,11 +16,11 @@ public class SoupSellersPool {
 	}
 
 	private void hireSoupSellers(int size) {
-		freeSoupSellers = new ArrayList<>(size);
-		busySoupSellers = new ArrayList<>();
+		freeSoupSellers = new ArrayDeque<>(size);
+		busySoupSellers = new ArrayDeque<>();
 
 		for (int i = 0; i < size; i++) {
-			freeSoupSellers.add(new SoupSeller(Names.names.get(i)));
+			freeSoupSellers.offer(new SoupSeller(Names.names.get(i)));
 		}
 	}
 
@@ -34,8 +34,7 @@ public class SoupSellersPool {
 
 	public SoupSeller getFirstFreeSoupSeller() throws NoFreeSoupSellersException {
 		if (!freeSoupSellers.isEmpty()) {
-			SoupSeller soupSeller = freeSoupSellers.get(freeSoupSellers.size() - 1);
-			freeSoupSellers.remove(soupSeller);
+			SoupSeller soupSeller = freeSoupSellers.poll();
 			busySoupSellers.add(soupSeller);
 			
 			return soupSeller;
@@ -46,8 +45,8 @@ public class SoupSellersPool {
 
 	public void releaseSoupSeller(SoupSeller soupSeller) {
 		if (busySoupSellers.contains(soupSeller)) {
-			freeSoupSellers.add(soupSeller);
-			busySoupSellers.remove(soupSeller);
+			freeSoupSellers.offer(soupSeller);
+			busySoupSellers.poll();
 		}
 	}
 }
