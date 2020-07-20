@@ -1,5 +1,7 @@
 package bar;
 
+import java.util.Objects;
+
 import constants.Bread;
 import constants.IceCream;
 import cookFactory.AbstractCookFactory;
@@ -65,4 +67,23 @@ public class SoupSeller {
 		
 		return orderBuilder;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof SoupSeller)) {
+			return false;
+		}
+		
+		SoupSeller other = (SoupSeller) obj;
+		return Objects.equals(name, other.name);
+	}
+	
 }
