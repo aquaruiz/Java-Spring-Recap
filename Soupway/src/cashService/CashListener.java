@@ -2,12 +2,12 @@ package cashService;
 
 import orders.Order;
 
-public class CashListener {
+public class CashListener implements Listener {
 	
 	public CashListener() {
 	}
 	
-	public void notifyForRecipe(Order order) {
+	public void notifyForReciept(Order order) {
 		System.out.println(order.toString());
 	}
 

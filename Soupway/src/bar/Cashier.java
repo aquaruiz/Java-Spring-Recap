@@ -1,22 +1,22 @@
 package bar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cashService.CashListener;
+import cashService.Listener;
 import exceptions.IllegalCloningException;
 import orders.CustomerInteractor;
 import orders.Order;
 
 public class Cashier {
 	private static volatile Cashier instance;
-	private CashListener cashListener;
+	private List<Listener> listeners;
 	private CustomerInteractor customerInteractor;
 
 	private Cashier() throws IllegalCloningException {
-		this.cashListener = new CashListener();
+		this.listeners = new ArrayList<>();
 		this.customerInteractor = CustomerInteractor.getInstance();
-
-		if (instance != null) {
-			throw new IllegalCloningException("Cannot have two Cashiers");
-		}
 	}
 
 	public static Cashier getInstance() throws IllegalCloningException {
@@ -24,16 +24,22 @@ public class Cashier {
 			synchronized (SoupSeller.class) {
 				if (instance == null)
 					instance = new Cashier();
-				return instance;
 			}
 		}
 
 		return instance;
 	}
 
+	public void registerListener(Listener listener) {
+		this.listeners.add(listener);
+	}
+	
 	public void collectCustomerPayment(Order order) {
 		order.calcPrice();
-		this.cashListener.notifyForRecipe(order);
+		
+		for (Listener listener : listeners) {
+			listener.notifyForReciept(order);
+		}
 		
 		System.out.println("Are you paying for all this? (Y/n)");
 		boolean wannaPay = customerInteractor.getCustomerBoolenInput();
@@ -43,9 +49,12 @@ public class Cashier {
 			System.out.println("All set.");
 		}
 		
-		this.cashListener.notify(order);
-		System.out.println("Bye!");
 
+		for (Listener listener : listeners) {
+			listener.notify();
+		}
+		
+		System.out.println("Bye!");
 	}
 
 }
