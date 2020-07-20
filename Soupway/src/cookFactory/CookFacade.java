@@ -14,11 +14,11 @@ import orders.CustomerInteractor;
 
 public class CookFacade {
 	private CustomerInteractor customerInteractor;
-	 
+
 	public CookFacade() {
 		this.customerInteractor = CustomerInteractor.getInstance();
 	}
-	
+
 	public Soup cookVegetarianSoup() {
 		return new VegetarianSoup();
 	}
@@ -36,8 +36,12 @@ public class CookFacade {
 			List<Integer> cheeseCodes = customerInteractor.getCustomerIntListInput();
 
 			for (int i = 0; i < cheeseCodes.size(); i++) {
-				Enum currentCheese = Cheese.values[cheeseCodes.get(i) - 1];
-				mySoup = new CheeseSoup(mySoup, currentCheese.toString().toLowerCase());
+				try {
+					Enum<Cheese> currentCheese = Cheese.values[cheeseCodes.get(i) - 1];
+					mySoup = new CheeseSoup(mySoup, currentCheese.toString());
+				} catch (Exception e) {
+					System.out.println("We do not offer # " + cheeseCodes.get(i));
+				}
 			}
 		}
 
@@ -47,8 +51,8 @@ public class CookFacade {
 	private <E extends Enum<E>> void printCurrentStock(E[] values) {
 		for (E type : values) {
 			System.out.print(String.format("%d. %s ", type.ordinal() + 1, type.toString().toLowerCase()));
-		}		
-		
+		}
+
 		System.out.println();
 	}
 
@@ -65,8 +69,12 @@ public class CookFacade {
 			List<Integer> meatCodes = customerInteractor.getCustomerIntListInput();
 
 			for (int i = 0; i < meatCodes.size(); i++) {
-				Enum currentMeat = Meat.values[meatCodes.get(i) - 1];
-				mySoup = new MeatSoup(mySoup, currentMeat.toString().toLowerCase());
+				try {
+					Enum<Meat> currentMeat = Meat.values[meatCodes.get(i) - 1];
+					mySoup = new MeatSoup(mySoup, currentMeat.toString());
+				} catch (Exception e) {
+					System.out.println("We do not offer # " + meatCodes.get(i));
+				}
 			}
 		}
 
@@ -80,5 +88,4 @@ public class CookFacade {
 	public Enum<IceCream> getIceCream() {
 		return IceCream.VANILLA;
 	}
-
 }
