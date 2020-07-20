@@ -25,7 +25,7 @@ public class Bar {
 
 	public void open() {
 		Order order = soupSeller.processCustomerOrder();
-
+		order.calcPrice();
 		cashier.collectCustomerPayment(order);
 	}
 }

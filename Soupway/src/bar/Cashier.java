@@ -14,7 +14,7 @@ public class Cashier {
 	private List<Listener> listeners;
 	private CustomerInteractor customerInteractor;
 
-	private Cashier() throws IllegalCloningException {
+	private Cashier() {
 		this.listeners = new ArrayList<>();
 		this.customerInteractor = CustomerInteractor.getInstance();
 	}
@@ -35,8 +35,6 @@ public class Cashier {
 	}
 	
 	public void collectCustomerPayment(Order order) {
-		order.calcPrice();
-		
 		for (Listener listener : listeners) {
 			listener.notifyForReciept(order);
 		}
