@@ -9,6 +9,6 @@ public class Application {
 		System.out.println("Welcome to Soupway! The soup paradise!");
 
 		soupWayBar = new Bar();
-		soupWayBar.run();
+		soupWayBar.open();
 	}
 }

@@ -42,14 +42,14 @@ public class SoupSeller {
 		Enum<Bread> orderedBread = null;
 		boolean wannaBread = customerInteractor.getCustomerBoolenInput();
 		if (wannaBread) {
-			orderedBread = abstractFactory.addBread();
+			orderedBread = abstractFactory.serveBread();
 		}
 
 		System.out.println("Do you want icecream? (Y/n)");
 		Enum<IceCream> orderedIcecream = null;
 		boolean wannaIcecream = customerInteractor.getCustomerBoolenInput();
 		if (wannaIcecream) {
-			orderedIcecream = abstractFactory.addIcecream();
+			orderedIcecream = abstractFactory.serveIcecream();
 		}
 
 		orderBuilder

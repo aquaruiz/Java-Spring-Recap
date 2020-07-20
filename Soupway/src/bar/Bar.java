@@ -7,7 +7,7 @@ import exceptions.NoFreeSoupSellersException;
 import orders.Order;
 import orders.OrderBuilder;
 
-public class Bar implements Runnable {
+public class Bar {
 	private SoupSeller soupSeller;
 	private Cashier cashier;
 
@@ -18,15 +18,14 @@ public class Bar implements Runnable {
 		cashier.registerListener(casheListener);
 	}
 
-	private SoupSeller getNextFreeSoupSeller() throws NoFreeSoupSellersException {
+	private SoupSeller getNextFreeSoupSeller() {
 		SoupSellersPool soupSellersPool = SoupSellersPool.getInstance();
 		return soupSellersPool.getFirstFreeSoupSeller();
 	}
 
-	public void run() {
+	public void open() {
 		Order order = soupSeller.processCustomerOrder();
 
 		cashier.collectCustomerPayment(order);
 	}
-
 }

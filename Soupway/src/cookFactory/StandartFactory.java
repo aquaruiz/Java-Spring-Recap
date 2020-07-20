@@ -21,13 +21,12 @@ public class StandartFactory implements AbstractCookFactory {
 	}
 
 	@Override
-	public Enum<Bread> addBread() {
+	public Enum<Bread> serveBread() {
 		return cookFacade.getBread();
 	}
 
 	@Override
-	public Enum<IceCream> addIcecream() {
+	public Enum<IceCream> serveIcecream() {
 		return cookFacade.getIceCream();
 	}
-
 }

@@ -8,8 +8,8 @@ public interface AbstractCookFactory {
 		
 	Soup cookSoup();
 	
-	Enum<Bread> addBread();
+	Enum<Bread> serveBread();
 	
-	Enum<IceCream> addIcecream();
+	Enum<IceCream> serveIcecream();
 
 }
