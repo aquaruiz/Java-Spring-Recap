@@ -31,7 +31,7 @@ public class Order {
 	
 	public void addSoup(Soup soup) {
 		this.soups.putIfAbsent(soup, 0); 
-		this.soups.put(soup, this.soups.get(soup)+1);
+		this.soups.put(soup, this.	soups.get(soup)+1);
 	}
 	
 	public void addBread(Enum<Bread> bread) {
@@ -49,7 +49,7 @@ public class Order {
 		this.icecreams.put(icecream, this.icecreams.get(icecream)+1);
 	}
 	
-	public double calcPrice() {
+	public void calcPrice() {
 		double totalPrice = 0;
 		// calc soups price
 		for (Entry<Soup, Integer> soupSet : this.soups.entrySet()) {
@@ -61,7 +61,6 @@ public class Order {
 				+ this.drinks.size() * Price.DRINK_PRICE;
 		
 		this.price = totalPrice;
-		return this.price;
 	}
 	
 	public void pay() {
