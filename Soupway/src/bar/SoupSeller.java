@@ -1,5 +1,7 @@
 package bar;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import constants.Bread;
@@ -38,6 +40,8 @@ public class SoupSeller {
 		System.out.println("I am preparing your soup...");
 		Soup orderedSoup = abstractFactory.cookSoup();
 
+		List<Enum> breadAndIcecream = new ArrayList<>();
+		
 		System.out.println("Do you want bread? (Y/n)");
 		Enum<Bread> orderedBread = null;
 		boolean wannaBread = customerInteractor.getCustomerBoolenInput();
@@ -45,6 +49,8 @@ public class SoupSeller {
 			orderedBread = abstractFactory.serveBread();
 		}
 
+		breadAndIcecream.add(orderedBread);
+		
 		System.out.println("Do you want icecream? (Y/n)");
 		Enum<IceCream> orderedIcecream = null;
 		boolean wannaIcecream = customerInteractor.getCustomerBoolenInput();
@@ -52,15 +58,12 @@ public class SoupSeller {
 			orderedIcecream = abstractFactory.serveIcecream();
 		}
 
-		orderBuilder
-			.addSoup(orderedSoup)
-			.addBread(orderedBread)
-			.addIcrecream(orderedIcecream);
+		breadAndIcecream.add(orderedIcecream);
+		
+		orderBuilder.makeOrder(orderedSoup, breadAndIcecream);
 
 		System.out.println("Do you want to order another soupSet?");
-
 		boolean wannaOrderMore = customerInteractor.getCustomerBoolenInput();
-
 		if (wannaOrderMore) {
 			placeOrder(abstractFactory);
 		}
