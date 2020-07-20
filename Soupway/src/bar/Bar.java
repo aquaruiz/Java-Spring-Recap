@@ -1,5 +1,7 @@
 package bar;
 
+import cashService.CashListener;
+import cashService.Listener;
 import exceptions.IllegalCloningException;
 import exceptions.NoFreeSoupSellersException;
 import orders.Order;
@@ -12,6 +14,8 @@ public class Bar implements Runnable {
 	public Bar() throws NoFreeSoupSellersException, IllegalCloningException {
 		this.soupSeller = this.getNextFreeSoupSeller();
 		this.cashier = Cashier.getInstance();
+		Listener casheListener = new CashListener();
+		cashier.registerListener(casheListener);
 	}
 
 	private SoupSeller getNextFreeSoupSeller() throws NoFreeSoupSellersException {
