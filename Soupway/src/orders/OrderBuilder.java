@@ -49,11 +49,4 @@ public class OrderBuilder {
 	public Order build() {
 		return this.order;
 	}
-
-	@SuppressWarnings("unchecked")
-	public void makeOrder(Soup orderedSoup, List<Enum> breadAndIcecream) {
-		this.addSoup(orderedSoup)
-			.addBread((Enum<Bread>) breadAndIcecream.get(0))
-			.addIcrecream((Enum<IceCream>) breadAndIcecream.get(1));
-	}
 }

@@ -26,45 +26,30 @@ public class SoupSeller {
 		System.out.println(String.format("Hello, My name is %s. Are you vegetarian? (Y/n)", name));
 
 		boolean isVegetarian = customerInteractor.getCustomerBoolenInput();
-
 		AbstractCookFactory abstractFactory = CookFactoryManager.getFactory(isVegetarian);
 
-		OrderBuilder orderBuilder = new OrderBuilder();
-
-		orderBuilder = placeOrder(abstractFactory, orderBuilder);
-
-		return orderBuilder.build();
+		return placeOrder(abstractFactory);
 	}
 
-	private OrderBuilder placeOrder(AbstractCookFactory abstractFactory, OrderBuilder orderBuilder) {
+	private Order placeOrder(AbstractCookFactory abstractFactory) {
+		OrderBuilder orderBuilder = new OrderBuilder();
 		
 		System.out.println("I am preparing your soup...");
-		Soup orderedSoup = abstractFactory.cookSoup();
-
-		List<Enum> breadAndIcecream = new ArrayList<>();
+		orderBuilder.addSoup(abstractFactory.cookSoup());
 		
 		System.out.println("Do you want bread? (Y/n)");
 		boolean wantBread = customerInteractor.getCustomerBoolenInput();
 		if (wantBread) {
-			breadAndIcecream.add(abstractFactory.serveBread());
+			orderBuilder.addBread(abstractFactory.serveBread());
 		}
 		
 		System.out.println("Do you want icecream? (Y/n)");
 		boolean wantIcecream = customerInteractor.getCustomerBoolenInput();
 		if (wantIcecream) {
-			breadAndIcecream.add(abstractFactory.serveIcecream());
+			orderBuilder.addIcrecream(abstractFactory.serveIcecream());
 		}
 
-		orderBuilder.makeOrder(orderedSoup, breadAndIcecream);
-
-		System.out.println("Do you want to order another soupSet?");
-		boolean wannaOrderMore = customerInteractor.getCustomerBoolenInput();
-
-		if (wannaOrderMore) {
-			placeOrder(abstractFactory, orderBuilder);
-		}
-		
-		return orderBuilder;
+		return orderBuilder.build();
 	}
 
 	@Override
@@ -84,5 +69,4 @@ public class SoupSeller {
 		SoupSeller other = (SoupSeller) obj;
 		return Objects.equals(name, other.name);
 	}
-	
 }
