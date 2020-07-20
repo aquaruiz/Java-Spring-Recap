@@ -1,6 +1,5 @@
 package bar;
 
-import cashService.CashListener;
 import exceptions.IllegalCloningException;
 import exceptions.NoFreeSoupSellersException;
 import orders.Order;

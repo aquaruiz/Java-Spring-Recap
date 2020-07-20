@@ -6,10 +6,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import bar.Cashier;
-import bar.SoupSeller;
-import exceptions.IllegalCloningException;
-
 public class CustomerInteractor {
 	private static volatile CustomerInteractor instance;
 

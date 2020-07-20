@@ -20,7 +20,7 @@ public class CookFacade {
 	}
 	
 	public Soup cookVegetarianSoup() {
-		return new VegetarianSoup(); // TODO
+		return new VegetarianSoup();
 	}
 
 	public Soup addCheese(Soup mySoup) {
@@ -72,12 +72,6 @@ public class CookFacade {
 
 		return mySoup;
 	}
-
-//	private void printCurrentMealStock() {
-//		for (Meat meatType : Meat.values()) {
-//			System.out.print(String.format("%d. %s ", meatType.ordinal() + 1, meatType.toString().toLowerCase()));
-//		}
-//	}
 
 	public Enum<Bread> getBread() {
 		return Bread.BROWN;

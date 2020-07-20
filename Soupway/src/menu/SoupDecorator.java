@@ -12,9 +12,6 @@ public abstract class SoupDecorator implements Soup {
 	protected SoupDecorator(Soup soup) {
 		this.soup = soup;
 		this.mainIngredients = new ArrayList<>(soup.getIngredients());
-//		if (soup instanceof SoupDecorator) {
-//			this.mainIngredients.addAll(((SoupDecorator)soup).getExtraIngredients());
-//		}
 		
 		this.extraIngredients = new ArrayList<>();
 	}
@@ -35,10 +32,6 @@ public abstract class SoupDecorator implements Soup {
 		return Collections.unmodifiableList(ingredients);
 	}
 
-//	public List<String> getExtraIngredients() {
-//		return extraIngredients;
-//	}
-	
 	public abstract double getPrice();
 	
 	public void addMore(String ingredient) {
