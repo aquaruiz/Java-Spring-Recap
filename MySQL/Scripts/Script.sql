@@ -81,7 +81,7 @@ VALUES
 	(4, 'sofa', 'a comforTABLE sofa'),
 	(5, 'bed', 'one premium size bed');
 
-INSERT INTO productDetail (id, weight, barcodeNumber, price)
+INSERT INTO productDetail (produstId, weight, barcodeNumber, price)
 VALUES 
 	(1, 4.850, '012356745650', 25.50),
 	(2, 10.360, '012345675650', 225.50),
@@ -95,7 +95,7 @@ VALUES
 	(12, '000459797', FALSE, NULL),
 	(13, NULL, TRUE, '584635416');
 
-INSERT INTO customerDetail (id, name, address, contactPerson)
+INSERT INTO customerDetail (customerId, name, address, contactPerson)
 VALUES 
 	(11, 'Flowers LLC', 'Pleven, ul. Skopie 56', 'Jane Doe'),
 	(12, 'IBM LTD', 'Sofia, ul. Tsarigradsko shose 256', 'Anna Georgieva'),
@@ -125,7 +125,7 @@ CREATE VIEW v_get_products_data AS
 	SELECT p.id, p.name, p.shortDescription, pd.weight, pd.price, pd.barcodeNumber 
 		FROM product AS p
 		JOIN productDetail AS pd
-		ON p.id = pd.id;
+		ON p.id = pd.productId;
 
 SELECT * FROM v_get_products_data; 
 
@@ -133,7 +133,7 @@ CREATE VIEW v_get_customers_data AS
 	SELECT c.id, cd.name, c.financialId, c.vatNumber, cd.address, cd.contactPerson 
 		FROM customer AS c 
 		JOIN customerDetail AS cd 
-		ON c.id = cd.id;
+		ON c.id = cd.customerId;
 
 SELECT * FROM v_get_customers_data; 
 
@@ -164,15 +164,15 @@ BEGIN
 	SELECT po.orderId, c.vatNumber, cd.name, p.name, po.productQuantity, pd.price AS 'price per unit', pd.price * po.productQuantity AS 'total price' 
 		FROM productOrder AS po
 		JOIN product AS p
-		ON p.id = po.productId 
+		ON p.id = po.id 
 		JOIN productDetail AS pd
-		ON p.id = pd.id 
+		ON p.id = pd.productId 
 		JOIN customerOrder AS o
 		ON o.id = po.orderId 
 		JOIN customer AS c
 		ON c.id = o.customerId
 		JOIN customerDetail AS cd
-		ON cd.id  = c.id
+		ON cd.customerId  = c.id
 		WHERE po.orderId = orderNumber;
 END; 
 
@@ -259,7 +259,7 @@ START TRANSACTION;
 	VALUES 
 		(10, 'desk', 'a simple desk');
 	
-	INSERT INTO productDetail (id, weight, barcodeNumber, price)
+	INSERT INTO productDetail (productId, weight, barcodeNumber, price)
 	VALUES 
 		(10, 8.000, '012356745650', 140.50);
 COMMIT;
