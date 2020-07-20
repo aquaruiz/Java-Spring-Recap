@@ -103,8 +103,8 @@ VALUES
 
 INSERT INTO customerOrder (id,	invoiceNumber, orderDate, totalPrice, customerId)
 VALUES 
-	(101, '00001', '2020-03-02', 0.2, 11),
-	(102, '00005', '2020-03-20', 500, 12);
+	(101, '00001', '2020-07-02', 0.2, 11),
+	(102, '00005', '2020-07-20', 500, 12);
 
 INSERT INTO product_order (productId, orderId, invoiceNumber, productQuantity)
 VALUES 
@@ -119,6 +119,151 @@ INSERT INTO activity_log (description, editedCustomerId, date_time)
 VALUES 
 	('nothing happened', 12, CURRENT_TIMESTAMP());
 
+-- CREATE some Views
+
+CREATE VIEW get_products_data AS
+SELECT p.id, p.name, p.shortDescription, pd.weight, pd.price, pd.barcodeNumber 
+	FROM product AS p
+	JOIN product_detail AS pd
+	ON p.id = pd.id;
+
+SELECT * FROM get_products_data; 
+
+CREATE VIEW get_customers_data AS
+SELECT c.id, cd.name, c.financialId, c.vatNumber, cd.address, cd.contactPerson 
+	FROM customer AS c 
+	JOIN customer_detail AS cd 
+	ON c.id = cd.id;
+
+SELECT * FROM get_customers_data; 
+
+-- CREATE  search queries
+
+USE factory;
+DROP PROCEDURE IF EXISTS get_product_info_by_part_product_name;
+
+DELIMITER $$
+CREATE PROCEDURE get_product_info_by_part_product_name
+(
+   product_name VARCHAR(255)
+) 
+BEGIN 
+   SELECT * FROM get_products_data 
+   WHERE name LIKE CONCAT('%', product_name, '%'); 
+end$$
+DELIMITER;
+
+CALL get_product_info_by_part_product_name('hai'); 
+
+-- DROP PROCEDURE get_product_info_by_part_product_name;
+
+CREATE PROCEDURE get_order_info_by_order_number
+(
+   order_number INT
+) 
+BEGIN  
+	SELECT po.orderId, c.vatNumber, cd.name, p.name, po.productQuantity, pd.price AS 'price per unit', pd.price * po.productQuantity AS 'total price' 
+		FROM product_order AS po
+		JOIN product AS p
+		ON p.id = po.productId 
+		JOIN product_detail AS pd
+		ON p.id = pd.id 
+		JOIN customerOrder AS o
+		ON o.id = po.orderId 
+		JOIN customer AS c
+		ON c.id = o.customerId
+		JOIN customer_detail AS cd
+		ON cd.id  = c.id
+		WHERE po.orderId = order_number;
+END; 
+
+CALL get_order_info_by_order_number(101);
+  
+-- DROP PROCEDURE get_order_info_by_order_number;
+
+CREATE PROCEDURE get_orders_for_last_month_by_customer_name
+(
+   customer_name varchar(255)
+) 
+BEGIN
+	SELECT o.id AS 'ORDER id', o.totalPrice, o.orderDate, cd.name AS 'customer name'
+		FROM customerOrder AS o 
+		JOIN customer_detail AS cd
+		ON cd.id = o.customerId
+		WHERE cd.name LIKE CONCAT('%', customer_name, '%') 
+		AND DATE_ADD(o.orderDate, INTERVAL 1 Month) > current_date();
+END;
+
+CALL get_orders_for_last_month_by_customer_name('Flower');
+
+-- DROP PROCEDURE get_orders_for_last_month_by_customer_name;
+
+CREATE VIEW get_products_sold_last_month AS
+	SELECT p.name AS 'product.name', sum(po.productQuantity) AS 'total quantity sold last month' 
+		FROM product_order AS po 
+		JOIN product_detail AS pd
+		ON pd.id = po.productId 
+		JOIN product AS p
+		ON p.id = pd.id 
+		JOIN customerOrder AS o
+		ON o.id = po.orderId 
+		WHERE DATE_ADD(o.orderDate, INTERVAL 1 Month) > current_date()
+		GROUP BY pd.id 
+		ORDER BY p.name;
+
+SELECT * FROM get_products_sold_last_month; 
+
+-- DROP view get_products_sold_last_month;
+
+-- add indices
+
+CREATE INDEX index_product
+ON product_detail (id);
+
+CREATE INDEX index_order
+ON product_order (orderId, productId);
+
+-- Log info in logs table
+
+CREATE PROCEDURE insert_in_log_table(msg TEXT, customerId INT, productId INT, orderId INT)
+BEGIN
+	IF customerId IS NOT NULL THEN 
+		IF (SELECT count(*) FROM customer	
+				WHERE customer.id = customerId) > 0 THEN 
+        	INSERT INTO activity_log (description, editedCustomerId) VALUES (msg, customerId);
+        END IF;
+    END IF;
+   
+	IF productId IS NOT NULL THEN 
+		IF (SELECT count(*) FROM product	
+				WHERE product.id = productId) > 0 THEN 
+       		INSERT INTO activity_log (description, editedProductId) VALUES (msg, productId);
+       END IF;
+    END IF;
+   
+	IF orderId IS NOT NULL THEN 
+		IF (SELECT count(*) FROM customerOrder
+				WHERE customerOrder.id = orderId) > 0 THEN 
+	        INSERT INTO activity_log (description, editedOrderId) VALUES (msg, orderId);
+       END IF;
+    END IF;
+END;
+
+-- DROP PROCEDURE insert_in_log_table;
+
+CALL insert_in_log_table('log edited', 00000, 1, 00000);
+
+-- insert product with transaction
+
+START TRANSACTION;
+	INSERT INTO product (id, name, shortDescription)
+	VALUES 
+		(10, 'desk', 'a simple desk');
+	
+	INSERT INTO product_detail (id, weight, barcodeNumber, price)
+	VALUES 
+		(10, 8.000, '012356745650', 140.50);
+COMMIT;
 
 -- DROP TABLE product;
 
