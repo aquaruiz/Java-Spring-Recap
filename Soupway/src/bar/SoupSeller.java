@@ -29,13 +29,14 @@ public class SoupSeller {
 
 		AbstractCookFactory abstractFactory = CookFactoryManager.getFactory(isVegetarian);
 
-		OrderBuilder orderBuilder = placeOrder(abstractFactory);
+		OrderBuilder orderBuilder = new OrderBuilder();
+
+		orderBuilder = placeOrder(abstractFactory, orderBuilder);
 
 		return orderBuilder.build();
 	}
 
-	private OrderBuilder placeOrder(AbstractCookFactory abstractFactory) {
-		OrderBuilder orderBuilder = new OrderBuilder();
+	private OrderBuilder placeOrder(AbstractCookFactory abstractFactory, OrderBuilder orderBuilder) {
 		
 		System.out.println("I am preparing your soup...");
 		Soup orderedSoup = abstractFactory.cookSoup();
@@ -47,7 +48,6 @@ public class SoupSeller {
 		if (wantBread) {
 			breadAndIcecream.add(abstractFactory.serveBread());
 		}
-
 		
 		System.out.println("Do you want icecream? (Y/n)");
 		boolean wantIcecream = customerInteractor.getCustomerBoolenInput();
@@ -61,7 +61,7 @@ public class SoupSeller {
 		boolean wannaOrderMore = customerInteractor.getCustomerBoolenInput();
 
 		if (wannaOrderMore) {
-			placeOrder(abstractFactory);
+			placeOrder(abstractFactory, orderBuilder);
 		}
 		
 		return orderBuilder;
