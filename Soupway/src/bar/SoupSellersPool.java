@@ -43,11 +43,4 @@ public class SoupSellersPool {
 
 		return soupSeller;
 	}
-
-	public void releaseSoupSeller(SoupSeller soupSeller) {
-		if (busySoupSellers.contains(soupSeller)) {
-			freeSoupSellers.offer(soupSeller);
-			busySoupSellers.poll();
-		}
-	}
 }

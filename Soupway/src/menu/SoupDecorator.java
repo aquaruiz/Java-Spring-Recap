@@ -33,8 +33,4 @@ public abstract class SoupDecorator implements Soup {
 	}
 
 	public abstract double getPrice();
-	
-	public void addMore(String ingredient) {
-		this.extraIngredients.add(ingredient);
-	}
 }

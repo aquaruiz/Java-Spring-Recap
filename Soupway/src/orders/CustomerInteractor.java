@@ -27,10 +27,6 @@ public class CustomerInteractor {
 		return instance;
 	}
 	
-	public String getCustomerStringInput() {
-		return this.scanner.nextLine().trim().toLowerCase();
-	}
-
 	public boolean getCustomerBoolenInput() {
 		String input = this.scanner.nextLine().trim().toLowerCase();
 		if (input.equals("y") || input.equals("yes") || input.equals("yeap") || input.equals("yea") || input.equals("yeah")) {

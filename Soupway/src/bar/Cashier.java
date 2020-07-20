@@ -21,7 +21,7 @@ public class Cashier {
 
 	public static Cashier getInstance() {
 		if (instance == null) {
-			synchronized (SoupSeller.class) {
+			synchronized (Cashier.class) {
 				if (instance == null)
 					instance = new Cashier();
 			}
@@ -49,10 +49,9 @@ public class Cashier {
 		
 
 		for (Listener listener : listeners) {
-			listener.notify(order);
+			listener.onOrderPaid(order);
 		}
 		
 		System.out.println("Bye!");
 	}
-
 }

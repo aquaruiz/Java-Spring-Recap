@@ -11,7 +11,7 @@ public class CashListener implements Listener {
 		System.out.println(order.toString());
 	}
 
-	public void notify(Order order) {
+	public void onOrderPaid(Order order) {
 		if (order.isPaid()) {
 			System.out.println("You just paid " + order.getPrice());
 		} else {
