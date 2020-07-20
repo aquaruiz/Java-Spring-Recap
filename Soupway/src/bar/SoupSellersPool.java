@@ -20,7 +20,7 @@ public class SoupSellersPool {
 		busySoupSellers = new ArrayDeque<>();
 
 		for (int i = 0; i < size; i++) {
-			freeSoupSellers.offer(new SoupSeller(Names.names.get(i)));
+			freeSoupSellers.offer(new SoupSeller(Names.getNextName()));
 		}
 	}
 
