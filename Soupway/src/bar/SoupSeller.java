@@ -43,27 +43,23 @@ public class SoupSeller {
 		List<Enum> breadAndIcecream = new ArrayList<>();
 		
 		System.out.println("Do you want bread? (Y/n)");
-		Enum<Bread> orderedBread = null;
-		boolean wannaBread = customerInteractor.getCustomerBoolenInput();
-		if (wannaBread) {
-			orderedBread = abstractFactory.serveBread();
+		boolean wantBread = customerInteractor.getCustomerBoolenInput();
+		if (wantBread) {
+			breadAndIcecream.add(abstractFactory.serveBread());
 		}
 
-		breadAndIcecream.add(orderedBread);
 		
 		System.out.println("Do you want icecream? (Y/n)");
-		Enum<IceCream> orderedIcecream = null;
-		boolean wannaIcecream = customerInteractor.getCustomerBoolenInput();
-		if (wannaIcecream) {
-			orderedIcecream = abstractFactory.serveIcecream();
+		boolean wantIcecream = customerInteractor.getCustomerBoolenInput();
+		if (wantIcecream) {
+			breadAndIcecream.add(abstractFactory.serveIcecream());
 		}
 
-		breadAndIcecream.add(orderedIcecream);
-		
 		orderBuilder.makeOrder(orderedSoup, breadAndIcecream);
 
 		System.out.println("Do you want to order another soupSet?");
 		boolean wannaOrderMore = customerInteractor.getCustomerBoolenInput();
+
 		if (wannaOrderMore) {
 			placeOrder(abstractFactory);
 		}
