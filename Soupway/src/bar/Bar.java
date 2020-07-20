@@ -11,7 +11,7 @@ public class Bar {
 	private SoupSeller soupSeller;
 	private Cashier cashier;
 
-	public Bar() throws NoFreeSoupSellersException, IllegalCloningException {
+	public Bar() {
 		this.soupSeller = this.getNextFreeSoupSeller();
 		this.cashier = Cashier.getInstance();
 		Listener casheListener = new CashListener();

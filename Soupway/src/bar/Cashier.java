@@ -19,7 +19,7 @@ public class Cashier {
 		this.customerInteractor = CustomerInteractor.getInstance();
 	}
 
-	public static Cashier getInstance() throws IllegalCloningException {
+	public static Cashier getInstance() {
 		if (instance == null) {
 			synchronized (SoupSeller.class) {
 				if (instance == null)
