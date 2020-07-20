@@ -18,19 +18,21 @@ public class SoupSeller {
 		this.customerInteractor = CustomerInteractor.getInstance();
 	}
 
-	public Order processCustomerOrder(OrderBuilder orderBuilder) {
+	public Order processCustomerOrder() {
 		System.out.println(String.format("Hello, My name is %s. Are you vegetarian? (Y/n)", name));
 
 		boolean isVegetarian = customerInteractor.getCustomerBoolenInput();
 
 		AbstractCookFactory abstractFactory = CookFactoryManager.getFactory(isVegetarian);
 
-		orderBuilder = placeOrder(abstractFactory, orderBuilder);
+		OrderBuilder orderBuilder = placeOrder(abstractFactory);
 
 		return orderBuilder.build();
 	}
 
-	private OrderBuilder placeOrder(AbstractCookFactory abstractFactory, OrderBuilder orderBuilder) {
+	private OrderBuilder placeOrder(AbstractCookFactory abstractFactory) {
+		OrderBuilder orderBuilder = new OrderBuilder();
+		
 		System.out.println("I am preparing your soup...");
 		Soup orderedSoup = abstractFactory.cookSoup();
 
@@ -58,7 +60,7 @@ public class SoupSeller {
 		boolean wannaOrderMore = customerInteractor.getCustomerBoolenInput();
 
 		if (wannaOrderMore) {
-			placeOrder(abstractFactory, orderBuilder);
+			placeOrder(abstractFactory);
 		}
 		
 		return orderBuilder;

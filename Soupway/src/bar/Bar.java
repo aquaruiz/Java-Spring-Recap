@@ -24,8 +24,7 @@ public class Bar implements Runnable {
 	}
 
 	public void run() {
-		OrderBuilder orderBuilder = new OrderBuilder();
-		Order order = soupSeller.processCustomerOrder(orderBuilder);
+		Order order = soupSeller.processCustomerOrder();
 
 		cashier.collectCustomerPayment(order);
 	}

@@ -51,7 +51,7 @@ public class Cashier {
 		
 
 		for (Listener listener : listeners) {
-			listener.notify();
+			listener.notify(order);
 		}
 		
 		System.out.println("Bye!");
