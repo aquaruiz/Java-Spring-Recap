@@ -1,5 +1,6 @@
 package cookFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import constants.Bread;
@@ -29,20 +30,22 @@ public class CookFacade {
 
 		if (isWithCheese) {
 			System.out.println("We are offering:\n");
-
 			printCurrentStock(Cheese.values());
 
 			System.out.println("Please choose one or more indredients in format: (1, 2, 2, 1)\n");
 			List<Integer> cheeseCodes = customerInteractor.getCustomerIntListInput();
-
+			List<String> cheeseNames = new ArrayList<>();
+			
 			for (int i = 0; i < cheeseCodes.size(); i++) {
 				try {
 					Enum<Cheese> currentCheese = Cheese.values[cheeseCodes.get(i) - 1];
-					mySoup = new CheeseSoup(mySoup, currentCheese.toString());
+					cheeseNames.add(currentCheese.toString());
 				} catch (Exception e) {
 					System.out.println("We do not offer # " + cheeseCodes.get(i));
 				}
 			}
+			
+			mySoup = new CheeseSoup(mySoup, cheeseNames);
 		}
 
 		return mySoup;
@@ -62,20 +65,22 @@ public class CookFacade {
 
 		if (isWithMeat) {
 			System.out.println("We are offering:\n");
-
 			printCurrentStock(Meat.values);
 
 			System.out.println("Please choose one or more indredients in format: (1, 2, 2, 1)\n");
 			List<Integer> meatCodes = customerInteractor.getCustomerIntListInput();
-
+			List<String> meatNames = new ArrayList<>();
+			
 			for (int i = 0; i < meatCodes.size(); i++) {
 				try {
 					Enum<Meat> currentMeat = Meat.values[meatCodes.get(i) - 1];
-					mySoup = new MeatSoup(mySoup, currentMeat.toString());
+					meatNames.add(currentMeat.toString());
 				} catch (Exception e) {
 					System.out.println("We do not offer # " + meatCodes.get(i));
 				}
 			}
+			
+			mySoup = new MeatSoup(mySoup, meatNames);
 		}
 
 		return mySoup;

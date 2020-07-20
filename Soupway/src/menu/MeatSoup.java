@@ -1,6 +1,7 @@
 package menu;
 
 import java.util.Arrays;
+import java.util.List;
 
 import constants.Price;
 
@@ -12,6 +13,11 @@ public class MeatSoup extends SoupDecorator implements Soup {
 		super.extraIngredients = Arrays.asList(meat);
 	}
 	
+	public MeatSoup(Soup soup, List<String> meatNames) {
+		super(soup);
+		this.extraIngredients.addAll(meatNames);
+	}
+
 	public double getPrice() {
 		price = super.soup.getPrice() + Price.MEAT_PRICE * super.extraIngredients.size(); 
 		return price;
