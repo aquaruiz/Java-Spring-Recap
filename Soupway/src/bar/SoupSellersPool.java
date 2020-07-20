@@ -32,15 +32,16 @@ public class SoupSellersPool {
 		return instance;
 	}
 
-	public SoupSeller getFirstFreeSoupSeller() throws NoFreeSoupSellersException {
-		if (!freeSoupSellers.isEmpty()) {
-			SoupSeller soupSeller = freeSoupSellers.poll();
-			busySoupSellers.add(soupSeller);
-			
-			return soupSeller;
-		} else {
-			throw new NoFreeSoupSellersException("No free soupsellers at this moment. Please wait");
+	public SoupSeller getFirstFreeSoupSeller() {
+		if (freeSoupSellers.isEmpty()) {
+			// it could throws an exception but better to offer more members
+			hireSoupSellers(5);
 		}
+
+		SoupSeller soupSeller = freeSoupSellers.poll();
+		busySoupSellers.add(soupSeller);
+
+		return soupSeller;
 	}
 
 	public void releaseSoupSeller(SoupSeller soupSeller) {
