@@ -112,18 +112,14 @@ VALUES
 -- CREATE some Views
 
 CREATE VIEW v_get_products_data AS
-	SELECT p.id, p.name, p.shortDescription, pd.weight, pd.price, pd.barcodeNumber 
-		FROM product AS p
-		JOIN productDetail AS pd
-		ON p.id = pd.productId;
+	SELECT p.id, p.name, p.shortDescription, p.weight, p.price, p.barcodeNumber 
+		FROM product AS p;
 
 SELECT * FROM v_get_products_data; 
 
 CREATE VIEW v_get_customers_data AS
-	SELECT c.id, cd.name, c.financialId, c.vatNumber, cd.address, cd.contactPerson 
-		FROM customer AS c 
-		JOIN customerDetail AS cd 
-		ON c.id = cd.customerId;
+	SELECT c.id, c.name, c.financialId, c.vatNumber, c.address, c.contactPerson 
+		FROM customer AS c;
 
 SELECT * FROM v_get_customers_data; 
 
@@ -151,18 +147,14 @@ CREATE PROCEDURE sp_get_order_info_by_order_number
    orderNumber INT
 ) 
 BEGIN  
-	SELECT po.orderId, c.vatNumber, cd.name, p.name, po.productQuantity, pd.price AS 'price per unit', pd.price * po.productQuantity AS 'total price' 
+	SELECT po.orderId, c.vatNumber, c.name, p.name, po.productQuantity, p.price AS 'price per unit', p.price * po.productQuantity AS 'total price' 
 		FROM productOrder AS po
 		JOIN product AS p
-		ON p.id = po.id 
-		JOIN productDetail AS pd
-		ON p.id = pd.productId 
+		ON p.id = po.productId 
 		JOIN customerOrder AS o
 		ON o.id = po.orderId 
 		JOIN customer AS c
 		ON c.id = o.customerId
-		JOIN customerDetail AS cd
-		ON cd.customerId  = c.id
 		WHERE po.orderId = orderNumber;
 END; 
 
@@ -175,11 +167,11 @@ CREATE PROCEDURE sp_get_orders_for_last_month_by_customer_name
    customerName VARCHAR(255)
 ) 
 BEGIN
-	SELECT o.id AS 'ORDER id', o.totalPrice, o.orderDate, cd.name AS 'customer name'
+	SELECT o.id AS 'ORDER id', o.totalPrice, o.orderDate, c.name AS 'customer name'
 		FROM customerOrder AS o 
-		JOIN customerDetail AS cd
-		ON cd.id = o.customerId
-		WHERE cd.name LIKE CONCAT('%', customerName, '%') 
+		JOIN customer AS c
+		ON c.id = o.customerId
+		WHERE c.name LIKE CONCAT('%', customerName, '%') 
 		AND DATE_ADD(o.orderDate, INTERVAL 1 MONTH) > current_date();
 END;
 
@@ -190,14 +182,12 @@ CALL sp_get_orders_for_last_month_by_customer_name('Flower');
 CREATE VIEW sp_get_products_sold_last_month AS
 	SELECT p.name AS 'product.name', sum(po.productQuantity) AS 'total quantity sold last month' 
 		FROM productOrder AS po 
-		JOIN productDetail AS pd
-		ON pd.id = po.productId 
 		JOIN product AS p
-		ON p.id = pd.id 
+		ON po.productId = p.id 
 		JOIN customerOrder AS o
 		ON o.id = po.orderId 
 		WHERE DATE_ADD(o.orderDate, INTERVAL 1 Month) > current_date()
-		GROUP BY pd.id 
+		GROUP BY p.id 
 		ORDER BY p.name;
 
 SELECT * FROM sp_get_products_sold_last_month; 
@@ -206,52 +196,69 @@ SELECT * FROM sp_get_products_sold_last_month;
 
 -- add indices
 
-CREATE INDEX index_product
-ON productDetail (id);
+CREATE INDEX index_edited_product_log
+ON orderActivityLog (editedProductId);
 
-CREATE INDEX indexOrder
-ON productOrder (orderId, productId);
+CREATE INDEX index_edited_order_log
+ON orderActivityLog (editedOrderId);
+
+CREATE INDEX index_edited_customer_log
+ON customerActivityLog (editedCustomerId);
+
+CREATE INDEX index_customer_order
+ON customerOrder (customerID);
 
 -- Log info in logs table
 
-CREATE PROCEDURE sp_insert_in_log_table(msg TEXT, customerId INT, productId INT, orderId INT)
+CREATE PROCEDURE sp_insert_in_product_log_table(msg TEXT, productId INT)
 BEGIN
-	IF customerId IS NOT NULL THEN 
-		IF (SELECT COUNT(*) FROM customer	
-				WHERE customer.id = customerId) > 0 THEN 
-        	INSERT INTO activityLog (description, editedCustomerId) VALUES (msg, customerId);
-        END IF;
-    END IF;
-   
+	
 	IF productId IS NOT NULL THEN 
 		IF (SELECT COUNT(*) FROM product	
 				WHERE product.id = productId) > 0 THEN 
-       		INSERT INTO activityLog (description, editedProductId) VALUES (msg, productId);
+       		INSERT INTO productActivityLog (description, editedProductId) VALUES (msg, productId);
        END IF;
     END IF;
    
+END;
+
+
+CREATE PROCEDURE sp_insert_in_order_log_table(msg TEXT, orderId INT)
+BEGIN
+	
 	IF orderId IS NOT NULL THEN 
-		IF (SELECT COUNT(*) FROM customerOrder
+		IF (SELECT COUNT(*) FROM customerOrder	
 				WHERE customerOrder.id = orderId) > 0 THEN 
-	        INSERT INTO activityLog (description, editedOrderId) VALUES (msg, orderId);
+       		INSERT INTO orderActivityLog (description, editedOrderId) VALUES (msg, orderId);
        END IF;
     END IF;
+   
+END;
+
+CREATE PROCEDURE sp_insert_in_customer_log_table(msg TEXT, customerId INT)
+BEGIN
+	
+	IF customerId IS NOT NULL THEN 
+		IF (SELECT COUNT(*) FROM customer	
+				WHERE customer.id = customerId) > 0 THEN 
+       		INSERT INTO customerActivityLog (description, editedCustomerId) VALUES (msg, customerId);
+       END IF;
+    END IF;
+   
 END;
 
 -- DROP PROCEDURE sp_insert_in_log_table;
 
-CALL sp_insert_in_log_table('log edited', 00000, 1, 00000);
+CALL sp_insert_in_customer_log_table('customer log edited', 13);
 
 -- insert product with transaction
 
 START TRANSACTION;
-	INSERT INTO product (id, name, shortDescription)
+	INSERT INTO product (id, name, shortDescription, weight, barcodeNumber, price)
 	VALUES 
-		(10, 'desk', 'a simple desk');
+		(10, 'desk', 'a simple desk', 10, 8.000, '012356745650', 140.50);
 	
-	INSERT INTO productDetail (productId, weight, barcodeNumber, price)
-	VALUES 
-		(10, 8.000, '012356745650', 140.50);
+	CALL sp_insert_in_product_log_table("added new product", 100);
 COMMIT;
 
 -- DROP TABLE product;
