@@ -8,16 +8,10 @@ CREATE TABLE product(
 	id INT NOT NULL AUTO_INCREMENT UNIQUE,
 	name VARCHAR(255) NOT NULL,
 	shortDescription TEXT,
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE productDetail(
-	productId INT NOT NULL UNIQUE,
 	weight FLOAT DEFAULT 0.00,
 	barcodeNumber VARCHAR(15),
 	price DECIMAL(5, 2),
-	PRIMARY KEY (productId),
-	FOREIGN KEY (productId) REFERENCES product(id)
+	PRIMARY KEY (id)
 );
 
 CREATE TABLE customer (
@@ -25,16 +19,10 @@ CREATE TABLE customer (
 	financialId VARCHAR(255),
 	isVatRegistered BOOLEAN DEFAULT FALSE,
 	vatNumber VARCHAR(255),
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE customerDetail (
-	customerId INT NOT NULL UNIQUE,
 	name VARCHAR(255) NOT NULL,
 	address TEXT NOT NULL,
 	contactPerson VARCHAR(255),
-	PRIMARY KEY (customerId),
-	FOREIGN KEY (customerId) REFERENCES customer(id)
+	PRIMARY KEY (id)
 );
 
 CREATE TABLE customerOrder (
@@ -57,49 +45,51 @@ CREATE TABLE productOrder (
 	FOREIGN KEY (orderId) REFERENCES customerOrder(id)
 );	
 
-CREATE TABLE activityLog (
+CREATE TABLE customerActivityLog (
 	id INT NOT NULL AUTO_INCREMENT UNIQUE,
+	modifiedAt DATETIME DEFAULT CURRENT_TIMESTAMP(),
 	username VARCHAR(255) DEFAULT 'Anonymous',
 	description TEXT,
-	editedCustomerId INT DEFAULT NULL,
-	editedProductId INT DEFAULT NULL,
-	editedOrderId INT DEFAULT NULL,
-	dateTime DATETIME DEFAULT CURRENT_TIMESTAMP(),
+	editedCustomerId INT NOT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (editedCustomerId) REFERENCES customer(id),
-	FOREIGN KEY (editedProductId) REFERENCES product(id),
+	FOREIGN KEY (editedCustomerId) REFERENCES customer(id)
+);
+
+CREATE TABLE productActivityLog (
+	id INT NOT NULL AUTO_INCREMENT UNIQUE,
+	username VARCHAR(255) DEFAULT 'Anonymous',
+	modifiedAt DATETIME DEFAULT CURRENT_TIMESTAMP(),
+	description TEXT,
+	editedProductId INT DEFAULT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (editedProductId) REFERENCES product(id)
+);
+
+CREATE TABLE orderActivityLog (
+	id INT NOT NULL AUTO_INCREMENT UNIQUE,
+	username VARCHAR(255) DEFAULT 'Anonymous',
+	modifiedAt DATETIME DEFAULT CURRENT_TIMESTAMP(),
+	description TEXT,
+	editedOrderId INT DEFAULT NULL,
+	PRIMARY KEY (id),
 	FOREIGN KEY (editedOrderId) REFERENCES customerOrder(id)
 );
 
 -- populate data in Tables
 
-INSERT INTO product (id, name, shortDescription)
+INSERT INTO product (id, name, shortDescription, weight, barcodeNumber, price)
 VALUES 
-	(1, 'chair', 'one very nice chair'),
-	(2, 'table', 'very nice kitchen table'),
-	(3, 'wardrobe', 'really large wardrobe'),
-	(4, 'sofa', 'a comforTABLE sofa'),
-	(5, 'bed', 'one premium size bed');
+	(1, 'chair', 'one very nice chair', 4.850, '012356745650', 25.50),
+	(2, 'table', 'very nice kitchen table', 10.360, '012345675650', 225.50),
+	(3, 'wardrobe', 'really large wardrobe', 32.100, '012345674650', 485.50),
+	(4, 'sofa', 'a comforTABLE sofa', 15.685, '012346745650', 350.99),
+	(5, 'bed', 'one premium size bed', 50.950, '012345674565', 860.99);
 
-INSERT INTO productDetail (produstId, weight, barcodeNumber, price)
+INSERT INTO customer (id, financialId, isVatRegistered, vatNumber, name, address, contactPerson)
 VALUES 
-	(1, 4.850, '012356745650', 25.50),
-	(2, 10.360, '012345675650', 225.50),
-	(3, 32.100, '012345674650', 485.50),
-	(4, 15.685, '012346745650', 350.99),
-	(5, 50.950, '012345674565', 860.99);
-
-INSERT INTO customer (id, financialId, isVatRegistered, vatNumber)
-VALUES 
-	(11, '', FALSE, NULL),
-	(12, '000459797', FALSE, NULL),
-	(13, NULL, TRUE, '584635416');
-
-INSERT INTO customerDetail (customerId, name, address, contactPerson)
-VALUES 
-	(11, 'Flowers LLC', 'Pleven, ul. Skopie 56', 'Jane Doe'),
-	(12, 'IBM LTD', 'Sofia, ul. Tsarigradsko shose 256', 'Anna Georgieva'),
-	(13, 'Evil Corp.', 'New York, bul. Bulgaria 001', NULL);
+	(11, '', FALSE, NULL, 'Flowers LLC', 'Pleven, ul. Skopie 56', 'Jane Doe'),
+	(12, '000459797', FALSE, NULL, 'IBM LTD', 'Sofia, ul. Tsarigradsko shose 256', 'Anna Georgieva'),
+	(13, NULL, TRUE, '584635416', 'Corp.', 'New York, bul. Bulgaria 001', NULL);
 
 INSERT INTO customerOrder (id,	invoiceNumber, orderDate, totalPrice, customerId)
 VALUES 
@@ -115,9 +105,9 @@ VALUES
 	(2, 102, '00005', 6),
 	(4, 102, '00005', 1);
 
-INSERT INTO activityLog (description, editedCustomerId, dateTime)
+INSERT INTO orderActivityLog (description, editedOrderId, modifiedAt)
 VALUES 
-	('nothing happened', 12, CURRENT_TIMESTAMP());
+	('nothing happened', 102, CURRENT_TIMESTAMP());
 
 -- CREATE some Views
 
