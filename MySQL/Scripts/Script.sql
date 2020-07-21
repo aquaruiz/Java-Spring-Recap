@@ -48,31 +48,34 @@ CREATE TABLE productOrder (
 CREATE TABLE customerActivityLog (
 	id INT NOT NULL AUTO_INCREMENT UNIQUE,
 	modifiedAt DATETIME DEFAULT CURRENT_TIMESTAMP(),
-	username VARCHAR(255) DEFAULT 'Anonymous',
+	modifiedBy VARCHAR(255) DEFAULT 'Anonymous',
+	eventType VARCHAR(255),
+	customerId INT NOT NULL,
 	description TEXT,
-	editedCustomerId INT NOT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (editedCustomerId) REFERENCES customer(id)
+	FOREIGN KEY (customerId) REFERENCES customer(id)
 );
 
 CREATE TABLE productActivityLog (
 	id INT NOT NULL AUTO_INCREMENT UNIQUE,
-	username VARCHAR(255) DEFAULT 'Anonymous',
 	modifiedAt DATETIME DEFAULT CURRENT_TIMESTAMP(),
+	modifiedBy VARCHAR(255) DEFAULT 'Anonymous',
+	eventType VARCHAR(255),
+	productId INT DEFAULT NULL,
 	description TEXT,
-	editedProductId INT DEFAULT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (editedProductId) REFERENCES product(id)
+	FOREIGN KEY (productId) REFERENCES product(id)
 );
 
-CREATE TABLE orderActivityLog (
+CREATE TABLE customerOrderActivityLog (
 	id INT NOT NULL AUTO_INCREMENT UNIQUE,
-	username VARCHAR(255) DEFAULT 'Anonymous',
 	modifiedAt DATETIME DEFAULT CURRENT_TIMESTAMP(),
+	modifiedBy VARCHAR(255) DEFAULT 'Anonymous',
+	eventType VARCHAR(255),
+	customerOrderId INT DEFAULT NULL,
 	description TEXT,
-	editedOrderId INT DEFAULT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (editedOrderId) REFERENCES customerOrder(id)
+	FOREIGN KEY (customerOrderId) REFERENCES customerOrder(id)
 );
 
 -- populate data in Tables
@@ -105,9 +108,9 @@ VALUES
 	(2, 102, '00005', 6),
 	(4, 102, '00005', 1);
 
-INSERT INTO orderActivityLog (description, editedOrderId, modifiedAt)
+INSERT INTO customerOrderActivityLog (description, customerOrderId, modifiedAt, eventType)
 VALUES 
-	('nothing happened', 102, CURRENT_TIMESTAMP());
+	('nothing happened', 102, CURRENT_TIMESTAMP(), 'edit');
 
 -- CREATE some Views
 
@@ -210,46 +213,48 @@ ON customerOrder (customerID);
 
 -- Log info in logs table
 
-CREATE PROCEDURE sp_insert_in_product_log_table(msg TEXT, productId INT)
+CREATE PROCEDURE sp_insert_in_product_log_table(eventType VARCHAR(255), msg TEXT, productId INT)
 BEGIN
 	
 	IF productId IS NOT NULL THEN 
 		IF (SELECT COUNT(*) FROM product	
 				WHERE product.id = productId) > 0 THEN 
-       		INSERT INTO productActivityLog (description, editedProductId) VALUES (msg, productId);
+       		INSERT INTO productActivityLog (eventType, description, productId) VALUES (eventType, msg, productId);
        END IF;
     END IF;
    
 END;
 
 
-CREATE PROCEDURE sp_insert_in_order_log_table(msg TEXT, orderId INT)
+CREATE PROCEDURE sp_insert_in_order_log_table(eventType VARCHAR(255), msg TEXT, customerOrderId INT)
 BEGIN
 	
-	IF orderId IS NOT NULL THEN 
+	IF customerOrderId IS NOT NULL THEN 
 		IF (SELECT COUNT(*) FROM customerOrder	
-				WHERE customerOrder.id = orderId) > 0 THEN 
-       		INSERT INTO orderActivityLog (description, editedOrderId) VALUES (msg, orderId);
+				WHERE customerOrderId.id = orderId) > 0 THEN 
+       		INSERT INTO orderActivityLog (eventType, description, customerOrderId) VALUES (eventType, msg, customerOrderId);
        END IF;
     END IF;
    
 END;
 
-CREATE PROCEDURE sp_insert_in_customer_log_table(msg TEXT, customerId INT)
+CREATE PROCEDURE sp_insert_in_customer_log_table(eventType VARCHAR(255), msg TEXT, customerId INT)
 BEGIN
 	
 	IF customerId IS NOT NULL THEN 
 		IF (SELECT COUNT(*) FROM customer	
 				WHERE customer.id = customerId) > 0 THEN 
-       		INSERT INTO customerActivityLog (description, editedCustomerId) VALUES (msg, customerId);
+       		INSERT INTO customerActivityLog (eventType, description, customerId) VALUES (eventType, msg, customerId);
        END IF;
     END IF;
    
 END;
 
--- DROP PROCEDURE sp_insert_in_log_table;
+-- DROP PROCEDURE sp_insert_in_product_log_table;
+-- DROP PROCEDURE sp_insert_in_order_log_table;
+-- DROP PROCEDURE sp_insert_in_customer_log_table;
 
-CALL sp_insert_in_customer_log_table('customer log edited', 13);
+CALL sp_insert_in_customer_log_table('EDIT', 'customer log edited', 13);
 
 -- insert product with transaction
 
