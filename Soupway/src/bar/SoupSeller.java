@@ -1,14 +1,9 @@
 package bar;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import constants.Bread;
-import constants.IceCream;
 import cookFactory.AbstractCookFactory;
 import cookFactory.CookFactoryManager;
-import menu.Soup;
 import orders.CustomerInteractor;
 import orders.Order;
 import orders.OrderBuilder;
