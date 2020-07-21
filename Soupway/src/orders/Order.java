@@ -104,7 +104,7 @@ public class Order {
 			
 		if (bread.size() > 0) {
 			stringBuilder.append(" === ");
-			for (Enum<Bread> bread : bread.keySet()) {
+			for (Enum<Bread> bread: bread.keySet()) {
 				stringBuilder.append(bread.toString().toLowerCase())
 					.append(", ");
 			}

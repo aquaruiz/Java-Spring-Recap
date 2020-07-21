@@ -4,7 +4,6 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 import constants.Names;
-import exceptions.NoFreeSoupSellersException;
 
 public class SoupSellersPool {
 	private Queue<SoupSeller> freeSoupSellers;

@@ -2,10 +2,7 @@ package bar;
 
 import cashService.CashListener;
 import cashService.Listener;
-import exceptions.IllegalCloningException;
-import exceptions.NoFreeSoupSellersException;
 import orders.Order;
-import orders.OrderBuilder;
 
 public class Bar {
 	private SoupSeller soupSeller;
