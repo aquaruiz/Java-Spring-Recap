@@ -149,7 +149,7 @@ BEGIN
 END; 
 
 CALL sp_get_order_info_by_order_number(101);
-  
+
 -- DROP PROCEDURE sp_get_order_info_by_orderNumber;
 
 CREATE PROCEDURE sp_get_orders_for_last_month_by_customer_name
@@ -240,7 +240,7 @@ START TRANSACTION;
 	INSERT INTO product (id, name, shortDescription, weight, barcodeNumber, price)
 	VALUES 
 		(10, 'desk', 'a simple desk', 8.000, '012356745650', 140.50);
-	
+
 	CALL sp_insert_in_product_log_table('INSERT', "added new product", 10);
 COMMIT;
 
