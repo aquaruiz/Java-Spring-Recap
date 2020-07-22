@@ -199,39 +199,33 @@ ON customerActivityLog (customerId);
 
 CREATE PROCEDURE sp_insert_in_product_log_table(eventType VARCHAR(255), msg TEXT, productId INT)
 BEGIN
-	
 	IF productId IS NOT NULL THEN 
 		IF (SELECT COUNT(*) FROM product	
 				WHERE product.id = productId) > 0 THEN 
        		INSERT INTO productActivityLog (eventType, description, productId) VALUES (eventType, msg, productId);
        END IF;
-    END IF;
-   
+    END IF;   
 END;
 
 
-CREATE PROCEDURE sp_insert_in_order_log_table(eventType VARCHAR(255), msg TEXT, customerOrderId INT)
+CREATE PROCEDURE sp_insert_in_customer_order_log_table(eventType VARCHAR(255), msg TEXT, customerOrderId INT)
 BEGIN
-	
 	IF customerOrderId IS NOT NULL THEN 
 		IF (SELECT COUNT(*) FROM customerOrder	
 				WHERE customerOrderId.id = orderId) > 0 THEN 
        		INSERT INTO orderActivityLog (eventType, description, customerOrderId) VALUES (eventType, msg, customerOrderId);
        END IF;
     END IF;
-   
 END;
 
 CREATE PROCEDURE sp_insert_in_customer_log_table(eventType VARCHAR(255), msg TEXT, customerId INT)
-BEGIN
-	
+BEGIN	
 	IF customerId IS NOT NULL THEN 
 		IF (SELECT COUNT(*) FROM customer	
 				WHERE customer.id = customerId) > 0 THEN 
        		INSERT INTO customerActivityLog (eventType, description, customerId) VALUES (eventType, msg, customerId);
        END IF;
     END IF;
-   
 END;
 
 -- DROP PROCEDURE sp_insert_in_product_log_table;
@@ -245,19 +239,23 @@ CALL sp_insert_in_customer_log_table('EDIT', 'customer log edited', 13);
 START TRANSACTION;
 	INSERT INTO product (id, name, shortDescription, weight, barcodeNumber, price)
 	VALUES 
-		(10, 'desk', 'a simple desk', 10, 8.000, '012356745650', 140.50);
+		(10, 'desk', 'a simple desk', 8.000, '012356745650', 140.50);
 	
-	CALL sp_insert_in_product_log_table("added new product", 100);
+	CALL sp_insert_in_product_log_table('INSERT', "added new product", 10);
 COMMIT;
+
+-- DROP TABLE customerActivityLog;
+
+-- DROP TABLE customerOrderActivityLog;
+
+-- DROP TABLE productActivityLog;
+
+-- DROP TABLE productOrder;
+
+-- DROP TABLE customerOrder;
 
 -- DROP TABLE product;
 
 -- DROP TABLE customer;
-
--- DROP TABLE customerOrder;
-
--- DROP TABLE productOrder;
-
--- DROP TABLE activityLog;
 
 -- DROP DATABASE factory; 
