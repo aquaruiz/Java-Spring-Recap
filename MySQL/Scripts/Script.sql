@@ -112,20 +112,6 @@ INSERT INTO customerOrderActivityLog (description, customerOrderId, modifiedAt, 
 VALUES 
 	('nothing happened', 102, CURRENT_TIMESTAMP(), 'edit');
 
--- CREATE some Views
-
-CREATE VIEW v_get_products_data AS
-	SELECT p.id, p.name, p.shortDescription, p.weight, p.price, p.barcodeNumber 
-		FROM product AS p;
-
-SELECT * FROM v_get_products_data; 
-
-CREATE VIEW v_get_customers_data AS
-	SELECT c.id, c.name, c.financialId, c.vatNumber, c.address, c.contactPerson 
-		FROM customer AS c;
-
-SELECT * FROM v_get_customers_data; 
-
 -- CREATE  search queries
 
 DROP PROCEDURE IF EXISTS sp_get_product_info_by_part_product_name;
@@ -136,12 +122,13 @@ CREATE PROCEDURE sp_get_product_info_by_part_product_name
    productName VARCHAR(255)
 ) 
 BEGIN 
-   SELECT * FROM get_products_data 
-   WHERE name LIKE CONCAT('%', productName, '%'); 
+   SELECT p.id, p.name, p.shortDescription, p.weight, p.price, p.barcodeNumber 
+		FROM product AS p
+   		WHERE p.name LIKE CONCAT('%', productName, '%'); 
 end$$
 DELIMITER;
 
-CALL get_product_info_by_part_product_name('hai'); 
+CALL sp_get_product_info_by_part_product_name('hai'); 
 
 -- DROP PROCEDURE sp_get_product_info_by_part_product_name;
 
@@ -199,17 +186,14 @@ SELECT * FROM sp_get_products_sold_last_month;
 
 -- add indices
 
-CREATE INDEX index_edited_product_log
-ON orderActivityLog (editedProductId);
+CREATE INDEX index_product_log
+ON productActivityLog (productId);
 
-CREATE INDEX index_edited_order_log
-ON orderActivityLog (editedOrderId);
+CREATE INDEX index_customer_order_log
+ON customerOrderActivityLog (customerOrderId);
 
-CREATE INDEX index_edited_customer_log
-ON customerActivityLog (editedCustomerId);
-
-CREATE INDEX index_customer_order
-ON customerOrder (customerID);
+CREATE INDEX index_customer_log
+ON customerActivityLog (customerId);
 
 -- Log info in logs table
 
