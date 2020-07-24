@@ -7,7 +7,7 @@ import com.spring.service.SpeakerService;
 import com.spring.service.SpeakerServiceImpl;
 
 @Configuration
-public class Appconfig {
+public class AppConfig {
 	
 	@Bean(name = "speakerService")
 	public SpeakerService getSpeakerService() {

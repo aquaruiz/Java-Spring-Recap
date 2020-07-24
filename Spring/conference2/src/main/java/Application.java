@@ -6,7 +6,7 @@ import com.spring.service.SpeakerService;
 public class Application {
 
 	public static void main(String[] args) {
-		ApplicationContext appContext = new AnnotationConfigApplicationContext(Appconfig.class);
+		ApplicationContext appContext = new AnnotationConfigApplicationContext(AppConfig.class);
 		
 //		SpeakerService service = new SpeakerServiceImpl();
 		SpeakerService service = appContext.getBean("speakerService", SpeakerService.class);
