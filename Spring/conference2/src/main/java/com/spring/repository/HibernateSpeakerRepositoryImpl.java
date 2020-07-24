@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.model.Speaker;
 
-@Repository
+@Repository("speakerRepository")
 public class HibernateSpeakerRepositoryImpl implements SpeakerRepository {
 	@Override
 	public List<Speaker> findAll() {
