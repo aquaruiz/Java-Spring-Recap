@@ -12,9 +12,10 @@ import com.spring.service.SpeakerServiceImpl;
 public class AppConfig {
 	
 	@Bean(name = "speakerService")
-	@Scope(value = BeanDefinition.SCOPE_PROTOTYPE)
+	@Scope(value = BeanDefinition.SCOPE_SINGLETON)
 	public SpeakerService getSpeakerService() {
-		SpeakerServiceImpl service = new SpeakerServiceImpl(getSpeakerRepository());
+		SpeakerService service = new SpeakerServiceImpl();
+//		SpeakerServiceImpl service = new SpeakerServiceImpl(getSpeakerRepository());
 //		service.setRepository(getSpeakerRepository());
 		return service;
 	}
