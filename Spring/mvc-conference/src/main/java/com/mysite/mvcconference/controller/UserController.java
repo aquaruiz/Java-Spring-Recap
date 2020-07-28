@@ -1,6 +1,7 @@
 package com.mysite.mvcconference.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +23,7 @@ public class UserController {
 		return user;
 	}
 
-	@GetMapping("/user")
+	@PostMapping("/user")
 	public User postUser(User user) {
 		return user;
 	}
