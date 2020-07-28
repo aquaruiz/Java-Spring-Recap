@@ -21,4 +21,9 @@ public class UserController {
 		
 		return user;
 	}
+
+	@GetMapping("/user")
+	public User postUser(User user) {
+		return user;
+	}
 }
