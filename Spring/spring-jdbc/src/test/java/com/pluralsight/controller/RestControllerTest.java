@@ -55,4 +55,16 @@ public class RestControllerTest {
 		restTemplate.put("http://localhost:8080/ride_tracker/ride", ride);
 		System.out.println("Ride: " + ride.getName());
 	}
+	
+	@Test(timeout = 3000)
+	public void testDeleteRide() {
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.delete("http://localhost:8080/ride_tracker/ride/9/delete");
+	}
+	
+	@Test(timeout = 3000)
+	public void testException() {
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.getForObject("http://localhost:8080/ride_tracker/test", Ride.class);
+	}
 }
