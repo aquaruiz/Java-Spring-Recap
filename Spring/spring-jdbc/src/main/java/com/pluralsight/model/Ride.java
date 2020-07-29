@@ -2,9 +2,14 @@ package com.pluralsight.model;
 
 public class Ride {
 
+	private Integer id;
 	private String name;
 	private int duration;
 
+	public Integer getId() {
+		return id;
+	}
+	
 	public int getDuration() {
 		return duration;
 	}
@@ -13,6 +18,10 @@ public class Ride {
 		return name;
 	}
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}

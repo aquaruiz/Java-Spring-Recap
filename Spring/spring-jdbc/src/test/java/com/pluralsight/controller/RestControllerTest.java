@@ -12,7 +12,7 @@ import com.pluralsight.model.Ride;
 
 public class RestControllerTest {
 
-	@Test(timeout=3000)
+	@Test(timeout=6000)
 	public void testGetRides() {
 		RestTemplate restTemplate = new RestTemplate();
 
@@ -32,9 +32,27 @@ public class RestControllerTest {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		Ride ride = new Ride();
-		ride.setName("Bobsled Trail");
-		ride.setDuration(33);
+		ride.setName("Sagebrish Tail");
+		ride.setDuration(38);
 		
+		ride = restTemplate.postForObject("http://localhost:8080/ride_tracker/ride", ride, Ride.class);
+		System.out.println("Ride: " + ride);
+	}
+	
+	@Test(timeout = 5000)
+	public void testGetRide() {
+		RestTemplate restTemplate = new RestTemplate();
+		Ride ride = restTemplate.getForObject("http://localhost:8080/ride_tracker/ride/2", Ride.class);
+		System.out.println("Ride: " + ride.getName());
+	}
+	
+	@Test(timeout = 5000)
+	public void testUpdateRide() {
+		RestTemplate restTemplate = new RestTemplate();
+		Ride ride = restTemplate.getForObject("http://localhost:8080/ride_tracker/ride/2", Ride.class);
+		ride.setDuration(ride.getDuration()+1000);
+
 		restTemplate.put("http://localhost:8080/ride_tracker/ride", ride);
+		System.out.println("Ride: " + ride.getName());
 	}
 }
