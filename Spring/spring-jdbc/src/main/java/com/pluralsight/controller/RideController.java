@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,5 +41,10 @@ public class RideController {
 	@PutMapping("/ride")
 	public @ResponseBody Ride updateRide(@RequestBody Ride ride) {
 		return rideService.updateRide(ride);
+	}
+	
+	@DeleteMapping("/ride/{id}/delete")
+	public @ResponseBody Ride deleteRide(@PathVariable(value = "id") Integer id) {
+		return rideService.deleteRide(id);
 	}
 }

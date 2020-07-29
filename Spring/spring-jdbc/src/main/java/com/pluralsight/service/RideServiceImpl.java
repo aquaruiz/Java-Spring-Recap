@@ -33,4 +33,9 @@ public class RideServiceImpl implements RideService {
 	public Ride updateRide(Ride ride) {
 		return rideRepository.updateRide(ride);
 	}
+	
+	@Override
+	public Ride deleteRide(Integer id) {
+		return rideRepository.deleteRide(id);
+	}
 }

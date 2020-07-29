@@ -9,7 +9,7 @@ public class Ride {
 	public Integer getId() {
 		return id;
 	}
-	
+
 	public int getDuration() {
 		return duration;
 	}
@@ -21,7 +21,7 @@ public class Ride {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
@@ -29,5 +29,5 @@ public class Ride {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 }
