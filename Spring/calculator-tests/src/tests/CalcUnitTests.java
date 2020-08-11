@@ -1,11 +1,14 @@
 package tests;
 
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Test;
 
 import entity.Calculator;
@@ -53,12 +56,20 @@ public class CalcUnitTests {
 
     @Test
     @DisplayName("test with assumption")
-    void pplaceAssumption() {
+    void placeAssumption() {
     	calc.setOperator("/");
     	calc.setRightOperand(0.0);
-    	assumeTrue(calc.getOperator().equals(""));
-    	assertThrows(IllegalArgumentException.class, calc::calculateResult);
+		assumingThat(calc.getOperator().equals(""),
+    		() -> {	
+    			assertTrue(false); 
+    		}
+		);
     }
 
-    
+    @RepeatedTest(value = 5, name = "-{displayName}::{currentRepetition} of {totalRepetitions}")
+    @DisplayName("operator should be same, repeatedly")
+    void repetedTest(RepetitionInfo info) {
+    	calc.setOperator("*");
+    	assertEquals(1.0, calc.calculateResult(), 0.01);
+    }
 }

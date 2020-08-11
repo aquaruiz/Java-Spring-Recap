@@ -1,28 +1,23 @@
 package com.mm.devcampsystem.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mm.devcampsystem.model.User;
-import com.mm.devcampsystem.model.UserDetails;
-import com.mm.devcampsystem.repository.UserRepository;
+import com.mm.devcampsystem.model.entity.User;
 
 @Service
 public class UserService {
 
-	private final UserRepository userRepository;
+//	private final UserRepository userRepository;
 
-	@Autowired
-	public UserService(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
+//	@Autowired
+//	public UserService(UserRepository userRepository) {
+//		th/is.userRepository = userRepository;
+//	}
 
 	public void createUser() {
 		User user = new User();
-		UserDetails userDetails = new UserDetails();
-		user.setUserDetails(userDetails);
 
-		userRepository.save(user);
+//		userRepository.save(user);
 		System.out.println("user set");
 	}
 }
