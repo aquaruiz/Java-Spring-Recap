@@ -1,6 +1,7 @@
 package com.mm.homeworks.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,16 @@ public class TeacherService {
 		newTeacher.setUserType(UserType.TEACHER);
 		Teacher result = teacherRepository.saveAndFlush(newTeacher);
 		return modelMapper.map(result, TeacherDto.class);
+	}
+
+	public int deleteTeacher(Long id) {
+		Optional<Teacher> teacherInDb = this.teacherRepository.findById(id);
+		if (teacherInDb.isEmpty()) {
+			return 0;
+		}
+		
+		this.teacherRepository.delete(teacherInDb.get());
+		return 1;
 	}
 
 }
