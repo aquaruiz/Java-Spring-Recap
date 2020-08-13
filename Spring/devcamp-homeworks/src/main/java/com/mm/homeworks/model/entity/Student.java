@@ -22,7 +22,7 @@ public class Student {
             name = "uuid-string",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @Column(name = "id", nullable = false, unique = true, updatable = false)
+    @Column(name = "user_id", nullable = false, unique = true, updatable = false)
     private String id;
 	
 	@Column
@@ -36,7 +36,7 @@ public class Student {
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@MapsId
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "user_id")
 	private User user;
 
 	public Student() {

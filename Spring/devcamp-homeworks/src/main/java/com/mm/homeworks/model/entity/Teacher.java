@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -29,7 +28,7 @@ public class Teacher {
             name = "uuid-string",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @Column(name = "id", nullable = false, unique = true, updatable = false)
+    @Column(name = "user_id", nullable = false, unique = true, updatable = false)
     private String id;
 	
 	@Column
@@ -39,7 +38,7 @@ public class Teacher {
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@MapsId
-	@JoinColumn(name = "id")
+//	@JoinColumn(name = "id")
 	private User user;
 	
 	public Teacher() {
