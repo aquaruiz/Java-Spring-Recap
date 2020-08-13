@@ -1,64 +1,84 @@
 package com.mm.homeworks.model.entity;
 
-import java.util.Collections;
-import java.util.Set;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "users")
-public class Student extends User {
-	@NotEmpty
-	@Size(max = 50, min = 2)
+@Table(name = "students")
+public class Student {
+	@Id
+    @GeneratedValue(generator = "uuid-string")
+    @GenericGenerator(
+            name = "uuid-string",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", nullable = false, unique = true, updatable = false)
+    private String id;
+	
+	@Column
 	private String firstName;
-
-	@NotEmpty
-	@Size(max = 50, min = 2)
+	
+	@Column
 	private String lastName;
-
-	@Min(16)
-	@Max(40)
-    @Column(columnDefinition = "integer default 25")
+	
+	@Column
 	private int age;
 	
-	@ManyToMany(targetEntity = Teacher.class)
-	@JoinTable(name = "teachers_students", 
-				joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"),
-				inverseJoinColumns = @JoinColumn(name = "teacher_id", referencedColumnName = "id"))
-	private Set<Teacher> teachers;
-	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@MapsId
+	@JoinColumn(name = "id")
+	private User user;
+
 	public Student() {
 	}
-
+	
+	public String getId() {
+		return id;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
-	
+
 	public String getLastName() {
 		return lastName;
 	}
-	
+
 	public int getAge() {
 		return age;
 	}
 
-	public Set<Teacher> getTeachers() {
-		return Collections.unmodifiableSet(teachers);
+	public User getUser() {
+		return user;
 	}
-	
-	public void addTeacher(Teacher teacher) {
-		if (teacher == null) {
-			return;
-		}
-		teachers.add(teacher);
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

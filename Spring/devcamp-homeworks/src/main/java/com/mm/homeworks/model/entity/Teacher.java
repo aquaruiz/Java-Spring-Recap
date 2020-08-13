@@ -1,54 +1,83 @@
 package com.mm.homeworks.model.entity;
 
-import java.util.Collections;
-import java.util.Set;
-
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
-@Table(name = "users")
-public class Teacher extends User {
+@Table(name = "teachers")
+public class Teacher {
+	@Id
+    @GeneratedValue(generator = "uuid-string")
+    @GenericGenerator(
+            name = "uuid-string",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", nullable = false, unique = true, updatable = false)
+    private String id;
 	
-	@NotEmpty
+	@Column
 	private String fullname;
-
-	@NotEmpty
+	@Column
 	private String subject;
-
-	@ManyToMany(mappedBy = "teachers")
-	private Set<Student> students;
-
+	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@MapsId
+	@JoinColumn(name = "id")
+	private User user;
+	
 	public Teacher() {
 	}
-
-	public String getFullname() {
-		return fullname;
+	
+	public String getId() {
+		return id;
 	}
-
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
+	
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public String getFullName() {
+		return fullname;
 	}
 	
 	public String getSubject() {
 		return subject;
 	}
 
+	public String getFullname() {
+		return fullname;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-	
-	public Set<Student> getStudents() {
-		return Collections.unmodifiableSet(students);
-	}
 
-	public void addStudent(Student student) {
-		if (student == null) {
-			return;
-		}
-
-		students.add(student);
+	public void setUser(User user) {
+		this.user = user;
 	}
 }
