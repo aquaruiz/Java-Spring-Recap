@@ -1,24 +1,22 @@
 package com.mm.homeworks.model.entity;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "teachers")
 public class Teacher {
@@ -31,14 +29,17 @@ public class Teacher {
     @Column(name = "user_id", nullable = false, unique = true, updatable = false)
     private String id;
 	
-	@Column
-	private String fullname;
-	@Column
-	private String subject;
+	@Enumerated(EnumType.STRING)
+	private Title title;
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	private String fullname;
+	
+	@OneToMany(mappedBy = "teacher")
+	private Set<Subject> subject;
+	
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@MapsId
-//	@JoinColumn(name = "id")
+	@JoinColumn(name = "user_id")
 	private User user;
 	
 	public Teacher() {
@@ -56,10 +57,6 @@ public class Teacher {
 		return fullname;
 	}
 	
-	public String getSubject() {
-		return subject;
-	}
-
 	public String getFullname() {
 		return fullname;
 	}
@@ -70,10 +67,6 @@ public class Teacher {
 
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
-	}
-
-	public void setSubject(String subject) {
-		this.subject = subject;
 	}
 
 	public void setUser(User user) {

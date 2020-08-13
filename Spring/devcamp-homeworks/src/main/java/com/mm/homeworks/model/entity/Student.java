@@ -1,13 +1,15 @@
 package com.mm.homeworks.model.entity;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -25,16 +27,16 @@ public class Student {
     @Column(name = "user_id", nullable = false, unique = true, updatable = false)
     private String id;
 	
-	@Column
 	private String firstName;
-	
-	@Column
 	private String lastName;
-	
-	@Column
 	private int age;
+	@Column(columnDefinition = "Decimal(3, 2)")
+	private double totalScore;
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "student", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private Set<StudentsHomeworksGrades> studentsHomeworksGradesLinkages;
+	
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@MapsId
 	@JoinColumn(name = "user_id")
 	private User user;

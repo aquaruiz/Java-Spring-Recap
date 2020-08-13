@@ -2,6 +2,8 @@ package com.mm.homeworks.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -26,8 +28,8 @@ public class User {
 	@Column
 	private String password;
 	
-	@Column
-	private String accountType;
+	@Enumerated(EnumType.STRING)
+	private AccountType accountType;
 
 	public User() {
 	}
@@ -48,19 +50,11 @@ public class User {
 		return password;
 	}
 
-	public String getAccountType() {
-		return accountType;
-	}
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public void setAccountType(String accountType) {
-		this.accountType = accountType;
 	}
 }

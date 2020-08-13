@@ -4,8 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mm.homeworks.model.entity.Teacher;
-import com.mm.homeworks.model.entity.User;
+import com.mm.homeworks.model.entity.Student;
 import com.mm.homeworks.repository.StudentRepository;
 import com.mm.homeworks.repository.TeacherRepository;
 import com.mm.homeworks.repository.UserRepository;
@@ -28,9 +27,11 @@ public class UserController {
 	}
 	
 	@PostMapping("/api/user")
-	public String create() {
-		User user = new User();
-		user.setPassword("fffdddddf");
+	public Object create() {
+		Student student = studentRepository.findById("7379f65a-72ae-430c-bdc3-a3308e09316a").get();
+		System.out.println(student.getUser());
+//		User user = new User();
+//		user.setPassword("fffdddddf");
 		
 //		Student student = new Student();
 //		student.setAge(5);
@@ -39,10 +40,10 @@ public class UserController {
 //		studentRepository.saveAndFlush(student);
 		
 		
-		Teacher teacher= new Teacher();
-		teacher.setFullname("assss");
-		teacher.setUser(user);
-		teacherRepository.saveAndFlush(teacher);
-		return "post";
+//		Teacher teacher= new Teacher();
+//		teacher.setFullname("assss");
+//		teacher.setUser(user);
+//		teacherRepository.saveAndFlush(teacher);
+		return "post " + student.getUser().getPassword();
 	}
 }
