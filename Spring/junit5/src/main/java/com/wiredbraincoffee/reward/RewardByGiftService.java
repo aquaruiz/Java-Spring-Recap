@@ -1,7 +1,5 @@
 package com.wiredbraincoffee.reward;
 
-import com.wiredbraincoffee.product.Product;
-
 import java.util.List;
 import java.util.Optional;
 
